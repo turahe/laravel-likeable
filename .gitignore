@@ -1,0 +1,12 @@
+/bootstrap/compiled.php
+.env.*.php
+.env.php
+!empty
+.idea
+.project
+.settings
+.buildpath
+composer.lock
+/vendor
+.phpintel/*
+.phpunit.result.cache
