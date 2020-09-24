@@ -83,12 +83,12 @@ trait Likeable
 		$this->decrementLikeCount();
 	}
 
-	/**
-	 * Has the currently logged in user already "liked" the current object
-	 *
-	 * @param string $userId
-	 * @return boolean
-	 */
+    /**
+     * Has the currently logged in user already "liked" the current object
+     *
+     * @param null $userId
+     * @return boolean
+     */
 	public function liked($userId=null)
 	{
 		if(is_null($userId)) {
@@ -190,6 +190,9 @@ trait Likeable
      * Fetch records that are liked by a given user.
      * Ex: Book::whereLikedBy(123)->get();
      * @access private
+     * @param $query
+     * @param null $userId
+     * @return mixed
      */
     public function scopeWhereLikedBy($query, $userId=null)
     {

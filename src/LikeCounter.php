@@ -3,6 +3,8 @@
 namespace Turahe\Likeable;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @mixin \Eloquent
@@ -12,12 +14,16 @@ class LikeCounter extends Model
 {
 	protected $table = 'like_counters';
 	public $timestamps = false;
-	protected $fillable = ['likeable_id', 'likeable_type', 'count'];
+	protected $fillable = [
+	    'likeable_id',
+        'likeable_type',
+        'count'
+    ];
 
     /**
      * @access private
      */
-	public function likeable()
+	public function likeable(): MorphTo
 	{
 		return $this->morphTo();
 	}
@@ -26,6 +32,7 @@ class LikeCounter extends Model
      * Delete all counts of the given model, and recount them and insert new counts
      *
      * @param $modelClass
+     * @throws \Exception
      */
 	public static function rebuild($modelClass)
 	{
@@ -34,7 +41,7 @@ class LikeCounter extends Model
 		}
 
 		$builder = Like::query()
-			->select(\DB::raw('count(*) as count, likeable_type, likeable_id'))
+			->select(DB::raw('count(*) as count, likeable_type, likeable_id'))
 			->where('likeable_type', $modelClass)
 			->groupBy('likeable_id');
 
@@ -42,7 +49,7 @@ class LikeCounter extends Model
 
 		$inserts = $results->toArray();
 
-		\DB::table((new static)->table)->insert($inserts);
+		DB::table((new static)->table)->insert($inserts);
 	}
 
 }

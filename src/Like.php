@@ -2,7 +2,12 @@
 
 namespace Turahe\Likeable;
 
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 /**
  * @mixin \Eloquent
@@ -13,15 +18,28 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Like extends Model
 {
+    use HasFactory;
+    use LogsActivity;
+
 	protected $table = 'likes';
-	public $timestamps = true;
-	protected $fillable = ['likeable_id', 'likeable_type', 'user_id'];
+	protected $fillable = [
+	    'likeable_id',
+        'likeable_type',
+        'user_id'
+    ];
 
     /**
      * @access private
      */
-	public function likeable()
+	public function likeable(): MorphTo
 	{
 		return $this->morphTo();
 	}
+    /**
+     * Return the like's author.
+     */
+    public function author(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
