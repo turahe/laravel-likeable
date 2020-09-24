@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\DB;
 class LikeCounter extends Model
 {
 	protected $table = 'like_counters';
-	public $timestamps = false;
 	protected $fillable = [
 	    'likeable_id',
         'likeable_type',

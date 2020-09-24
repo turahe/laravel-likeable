@@ -22,6 +22,7 @@ class CreateLikeableTables extends Migration
 			$table->string('likeable_id', 36);
 			$table->string('likeable_type', 255);
 			$table->unsignedBigInteger('count')->default(0);
+			$table->timestamps();
 			$table->unique(['likeable_id', 'likeable_type'], 'likeable_counts');
 		});
 
@@ -29,7 +30,7 @@ class CreateLikeableTables extends Migration
 
 	public function down()
 	{
-		Schema::drop('likeable_likes');
-		Schema::drop('likeable_like_counters');
+		Schema::drop('likes');
+		Schema::drop('like_counters');
 	}
 }
