@@ -1,21 +1,6 @@
 Laravel Likeable Plugin
 ============
 
-Important Note: As of version 1.2 I renamed `Conner\Likeable\LikeableTrait` to `Conner\Likeable\Likeable`
-
-[![Build Status](https://travis-ci.org/rtconner/laravel-likeable.svg?branch=laravel-7)](https://travis-ci.org/rtconner/laravel-likeable)
-[![Latest Stable Version](https://poser.pugx.org/rtconner/laravel-likeable/v/stable.svg)](https://packagist.org/packages/rtconner/laravel-likeable)
-[![License](https://poser.pugx.org/rtconner/laravel-likeable/license.svg)](https://packagist.org/packages/rtconner/laravel-likeable)
-
-Trait for Laravel Eloquent models to allow easy implementation of a "like" or "favorite" or "remember" feature.
-
-[Laravel 5/6/7 Documentation](https://github.com/rtconner/laravel-likeable/tree/laravel-7)  
-[Laravel 4 Documentation](https://github.com/rtconner/laravel-likeable/tree/laravel-4)
-
-#### Composer Install (for Laravel 5)
-
-	composer require rtconner/laravel-likeable "~3.0"
-
 #### Then run the migrations
 
 ```bash
@@ -26,7 +11,7 @@ php artisan migrate
 
 ```php
 class Article extends \Illuminate\Database\Eloquent\Model {
-	use \Conner\Likeable\LikeableTrait;
+	use \Turahe\Likeable\LikeableTrait;
 }
 ```
 
@@ -52,7 +37,3 @@ Article::whereLikedBy($myUserId) // find only articles where user liked them
 	->with('likeCounter') // highly suggested to allow eager load
 	->get();
 ```
-
-#### Credits
-
- - Robert Conner - http://smartersoftware.net
