@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Mockery as m;
 use Turahe\Likeable\Likeable;
 
-class CounterBaseTest extends BaseTestCase
+class CounterTest extends BaseTestCase
 {
 	public function testLike()
 	{
-		$likeable = m::mock('Conner\Tests\Likeable\LikeableStub[incrementLikeCount]');
+		$likeable = m::mock('Turahe\Tests\Likeable\LikeableStub[incrementLikeCount]');
 		$likeable->shouldReceive('incrementLikeCount')->andReturn(null);
 
 		$likeable->like(0);
@@ -18,7 +18,7 @@ class CounterBaseTest extends BaseTestCase
 
 	public function testUnlike()
 	{
-		$likeable = m::mock('Conner\Tests\Likeable\LikeableStub[decrementLikeCount]');
+		$likeable = m::mock('Turahe\Tests\Likeable\LikeableStub[decrementLikeCount]');
 		$likeable->shouldReceive('decrementLikeCount')->andReturn(null);
 
 		$likeable->unlike(0);

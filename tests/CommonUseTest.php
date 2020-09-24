@@ -2,12 +2,13 @@
 
 namespace Turahe\Tests\Likeable;
 
+use Illuminate\Support\Facades\Schema;
 use Turahe\Likeable\Like;
 use Illuminate\Database\Eloquent\Model;
 use Turahe\Likeable\Likeable;
 use Turahe\Likeable\LikeCounter;
 
-class CommonUseBaseTest extends BaseTestCase
+class CommonUseTest extends BaseTestCase
 {
 	public function setUp(): void
 	{
@@ -20,7 +21,7 @@ class CommonUseBaseTest extends BaseTestCase
 	{
 	    parent::getEnvironmentSetUp($app);
 
-		\Schema::create('books', function ($table) {
+		Schema::create('books', function ($table) {
 			$table->bigIncrements('id');
 			$table->string('name');
 			$table->timestamps();
@@ -29,7 +30,7 @@ class CommonUseBaseTest extends BaseTestCase
 
 	public function tearDown(): void
 	{
-		\Schema::drop('books');
+		Schema::drop('books');
 	}
 
 	public function test_basic_like()
