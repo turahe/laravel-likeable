@@ -1,11 +1,9 @@
 <?php
 
-namespace Database\Factories;
+namespace Turahe\Likeable;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
-use Turahe\Likeable\Like;
 
 class LikeFactory extends Factory
 {

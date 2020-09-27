@@ -10,7 +10,6 @@ use Illuminate\Support\Collection;
  *
  * @method static Builder whereLikedBy($userId=null)
  * @property Collection|Like[] likes
- * @property Liked liked
  * @property integer likeCount
  */
 trait Likeable

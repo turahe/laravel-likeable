@@ -21,8 +21,14 @@ class Like extends Model
     use HasFactory;
     use LogsActivity;
 
-	protected $table = 'likes';
-	protected $fillable = [
+    /**
+     * @var string
+     */
+    protected $table = 'likes';
+    /**
+     * @var string[]
+     */
+    protected $fillable = [
 	    'likeable_id',
         'likeable_type',
         'user_id'
@@ -41,5 +47,14 @@ class Like extends Model
     public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * @derivated
+     * @return LikeFactory
+     */
+    protected static function newFactory()
+    {
+        return LikeFactory::new();
     }
 }

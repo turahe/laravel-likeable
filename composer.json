@@ -5,8 +5,8 @@
 	"keywords": ["trait", "laravel", "laravel5", "eloquent", "likeable", "likable", "like", "remember", "follow", "favorite", "favourite"],
 	"authors": [
 		{
-			"name": "Robert Conner",
-			"email": "rtconner@smarter.bz"
+			"name": "Nur Wachid",
+			"email": "wachid@outlook.com"
 		}
 	],
 	"require": {
@@ -26,7 +26,7 @@
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"Conner\\Tests\\Likeable\\": "tests/"
+			"Turahe\\Tests\\Likeable\\": "tests/"
 		}
 	},
 	"extra": {

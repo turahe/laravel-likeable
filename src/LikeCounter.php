@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Facades\DB;
 
 /**
- * @mixin \Eloquent
  * @property Likeable likeable
  */
 class LikeCounter extends Model
