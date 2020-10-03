@@ -2,15 +2,13 @@
 
 namespace Turahe\Tests\Likeable;
 
-use Illuminate\Database\Eloquent\Model;
 use Mockery as m;
-use Turahe\Likeable\Likeable;
 
 class CounterTest extends BaseTestCase
 {
 	public function testLike()
 	{
-		$likeable = m::mock('Turahe\Tests\Likeable\LikeableStub[incrementLikeCount]');
+		$likeable = m::mock('Turahe\Tests\Likeable\Models\LikeableStub[incrementLikeCount]');
 		$likeable->shouldReceive('incrementLikeCount')->andReturn(null);
 
 		$likeable->like(0);
@@ -18,7 +16,7 @@ class CounterTest extends BaseTestCase
 
 	public function testUnlike()
 	{
-		$likeable = m::mock('Turahe\Tests\Likeable\LikeableStub[decrementLikeCount]');
+		$likeable = m::mock('Turahe\Tests\Likeable\Models\LikeableStub[decrementLikeCount]');
 		$likeable->shouldReceive('decrementLikeCount')->andReturn(null);
 
 		$likeable->unlike(0);
@@ -26,10 +24,3 @@ class CounterTest extends BaseTestCase
 
 }
 
-class LikeableStub extends Model
-{
-	use Likeable;
-
-	public function incrementLikeCount() {}
-	public function decrementLikeCount() {}
-}

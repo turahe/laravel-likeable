@@ -5,8 +5,8 @@ namespace Turahe\Tests\Likeable;
 use Illuminate\Support\Facades\Schema;
 use Turahe\Likeable\Like;
 use Illuminate\Database\Eloquent\Model;
-use Turahe\Likeable\Likeable;
 use Turahe\Likeable\LikeCounter;
+use Turahe\Tests\Likeable\Models\Stub;
 
 class CommonUseTest extends BaseTestCase
 {
@@ -129,12 +129,4 @@ class CommonUseTest extends BaseTestCase
 	}
 }
 
-/**
- * @mixin \Eloquent
- */
-class Stub extends Model
-{
-	use Likeable;
 
-	public $table = 'books';
-}
