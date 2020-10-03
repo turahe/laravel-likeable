@@ -5,13 +5,7 @@ namespace Turahe\Likeable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
-/**
- * Copyright (C) 2014 Robert Conner
- *
- * @method static Builder whereLikedBy($userId=null)
- * @property Collection|Like[] likes
- * @property integer likeCount
- */
+
 trait Likeable
 {
 	public static function bootLikeable()
