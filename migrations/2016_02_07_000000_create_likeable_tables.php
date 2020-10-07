@@ -9,7 +9,7 @@ class CreateLikeableTables extends Migration
 	public function up()
 	{
 		Schema::create('likes', function(Blueprint $table) {
-			$table->bigIncrements('id');
+            $table->id();
 			$table->string('likeable_id', 36);
 			$table->string('likeable_type', 255);
 			$table->string('user_id', 36)->index();
@@ -18,7 +18,7 @@ class CreateLikeableTables extends Migration
 		});
 
 		Schema::create('like_counters', function(Blueprint $table) {
-			$table->bigIncrements('id');
+			$table->id();
 			$table->string('likeable_id', 36);
 			$table->string('likeable_type', 255);
 			$table->unsignedBigInteger('count')->default(0);
