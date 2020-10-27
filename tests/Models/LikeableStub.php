@@ -5,7 +5,7 @@ namespace Turahe\Tests\Likeable\Models;
 
 
 use Illuminate\Database\Eloquent\Model;
-use Turahe\Likeable\Likeable;
+use Turahe\Likeable\Traits\Likeable;
 
 class LikeableStub extends Model
 {

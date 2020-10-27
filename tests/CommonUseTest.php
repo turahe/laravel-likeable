@@ -3,9 +3,9 @@
 namespace Turahe\Tests\Likeable;
 
 use Illuminate\Support\Facades\Schema;
-use Turahe\Likeable\Like;
+use Turahe\Likeable\Models\Like;
 use Illuminate\Database\Eloquent\Model;
-use Turahe\Likeable\LikeCounter;
+use Turahe\Likeable\Models\LikeCounter;
 use Turahe\Tests\Likeable\Models\Stub;
 
 class CommonUseTest extends BaseTestCase

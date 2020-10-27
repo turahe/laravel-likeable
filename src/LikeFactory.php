@@ -4,6 +4,7 @@ namespace Turahe\Likeable;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Turahe\Likeable\Models\Like;
 
 class LikeFactory extends Factory
 {

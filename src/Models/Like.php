@@ -1,6 +1,6 @@
 <?php
 
-namespace Turahe\Likeable;
+namespace Turahe\Likeable\Models;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,15 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Turahe\Likeable\Contracts\Like as LikeContract;
+use Turahe\Likeable\LikeFactory;
+
 
 /**
- * @mixin \Eloquent
- * @property Likeable likeable
- * @property string user_id
- * @property string likeable_id
- * @property string likeable_type
+ * Class Like
+ * @package Turahe\Likeable\Models
  */
-class Like extends Model
+class Like extends Model implements LikeContract
 {
     use HasFactory;
     use LogsActivity;
@@ -29,10 +29,10 @@ class Like extends Model
      * @var string[]
      */
     protected $fillable = [
-	    'likeable_id',
-        'likeable_type',
-        'user_id'
+        'user_id',
+        'type_id',
     ];
+
 
     /**
      * @access private
