@@ -1,5 +1,9 @@
 ## Introduction
 
+[![Latest Stable Version](https://poser.pugx.org/turahe/laravel-likeable/v)](//packagist.org/packages/turahe/laravel-likeable)
+[![Total Downloads](https://poser.pugx.org/turahe/laravel-likeable/downloads)](//packagist.org/packages/turahe/laravel-likeable)
+[![License](https://poser.pugx.org/turahe/laravel-likeable/license)](//packagist.org/packages/turahe/laravel-likeable)
+
 Laravel Likeable simplify management of Eloquent model's likes & dislikes. Make any model `likeable` & `dislikeable` in a minute!
 
 ## Contents
