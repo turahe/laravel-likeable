@@ -2,15 +2,19 @@
 	"name": "turahe/laravel-likeable",
 	"description": "Trait for Laravel Eloquent models to allow easy implementation of a 'like' or 'favorite' or 'remember' feature.",
 	"license": "MIT",
-	"keywords": ["trait", "laravel", "laravel5", "eloquent", "likeable", "likable", "like", "remember", "follow", "favorite", "favourite"],
+	"type": "library",
+	"keywords": ["trait", "laravel", "eloquent", "likeable", "likable", "like", "remember", "follow", "favorite", "favourite"],
 	"authors": [
 		{
 			"name": "Nur Wachid",
-			"email": "wachid@outlook.com"
+			"email": "wachid@outlook.com",
+			"homepage": "https://turahe.id",
+            "role": "Developer"
 		}
 	],
+	"homepage": "https://github.com/turahe/laravel-likeable",
 	"require": {
-		"php": ">=5.6.0",
+		"php": "^7.3",
 		"illuminate/database": "^8.0",
 		"illuminate/support": "^8.0"
 	},
@@ -29,6 +33,12 @@
 			"Turahe\\Tests\\Likeable\\": "tests/"
 		}
 	},
+	"scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    },
 	"extra": {
 		"laravel": {
 			"providers": [
@@ -36,5 +46,6 @@
 			]
 		}
 	},
-    "minimum-stability": "stable"
+	"minimum-stability": "stable",
+	"prefer-stable" : true
 }

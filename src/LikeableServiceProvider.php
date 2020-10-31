@@ -81,9 +81,12 @@ class LikeableServiceProvider extends ServiceProvider
      */
     protected function registerPublishes()
     {
+        $databasePath = __DIR__.'./../migrations';
+        $this->loadMigrationsFrom($databasePath);
+        
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../../database/migrations' => database_path('migrations'),
+                __DIR__ . './../migrations' => database_path('migrations'),
             ], 'migrations');
         }
     }
