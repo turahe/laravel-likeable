@@ -5,6 +5,7 @@
 [![License](https://poser.pugx.org/turahe/laravel-likeable/license)](//packagist.org/packages/turahe/laravel-likeable)
 [![Build Status](https://travis-ci.org/turahe/laravel-likeable.svg?branch=master)](https://travis-ci.org/turahe/laravel-likeable)
 ![PHP Composer](https://github.com/turahe/laravel-likeable/workflows/PHP%20Composer/badge.svg)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fturahe%2Flaravel-likeable.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fturahe%2Flaravel-likeable?ref=badge_shield)
 
 Laravel Likeable simplify management of Eloquent model's likes & dislikes. Make any model `likeable` & `dislikeable` in a minute!
 
@@ -405,3 +406,7 @@ You can run the tests with:
 ```sh
 $ vendor/bin/phpunit
 ```
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fturahe%2Flaravel-likeable.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fturahe%2Flaravel-likeable?ref=badge_large)
