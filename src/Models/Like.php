@@ -2,14 +2,10 @@
 
 namespace Turahe\Likeable\Models;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Spatie\Activitylog\Traits\LogsActivity;
-use Turahe\Likeable\Contracts\Like as LikeContract;
-use Turahe\Likeable\LikeFactory;
 
 
 /**
@@ -18,8 +14,6 @@ use Turahe\Likeable\LikeFactory;
  */
 class Like extends Model implements LikeContract
 {
-    use HasFactory;
-    use LogsActivity;
 
     /**
      * @var string
@@ -46,15 +40,6 @@ class Like extends Model implements LikeContract
      */
     public function author(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id');
-    }
-
-    /**
-     * @derivated
-     * @return LikeFactory
-     */
-    protected static function newFactory()
-    {
-        return LikeFactory::new();
+        return $this->belongsTo(config('auth.providers.users.model'), 'user_id');
     }
 }
