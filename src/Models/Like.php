@@ -2,19 +2,15 @@
 
 namespace Turahe\Likeable\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Class Like
- * @package Turahe\Likeable\Models
+ * Class Like.
  */
 class Like extends Model implements LikeContract
 {
-
     /**
      * @var string
      */
@@ -27,14 +23,11 @@ class Like extends Model implements LikeContract
         'type_id',
     ];
 
+    public function likeable(): MorphTo
+    {
+        return $this->morphTo();
+    }
 
-    /**
-     * @access private
-     */
-	public function likeable(): MorphTo
-	{
-		return $this->morphTo();
-	}
     /**
      * Return the like's author.
      */

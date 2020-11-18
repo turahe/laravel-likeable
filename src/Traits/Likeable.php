@@ -2,13 +2,12 @@
 
 namespace Turahe\Likeable\Traits;
 
-use Turahe\Likeable\Contracts\Like as LikeContract;
-use Turahe\Likeable\Contracts\LikeableService as LikeableServiceContract;
-use Turahe\Likeable\Contracts\LikeCounter as LikeCounterContract;
 use Turahe\Likeable\Enums\LikeType;
-use Turahe\Likeable\Observers\ModelObserver;
 use Illuminate\Database\Eloquent\Builder;
-
+use Turahe\Likeable\Observers\ModelObserver;
+use Turahe\Likeable\Contracts\Like as LikeContract;
+use Turahe\Likeable\Contracts\LikeCounter as LikeCounterContract;
+use Turahe\Likeable\Contracts\LikeableService as LikeableServiceContract;
 
 trait Likeable
 {

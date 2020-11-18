@@ -2,15 +2,15 @@
 
 namespace Turahe\Likeable;
 
-use Turahe\Likeable\Console\LikeableRecountCommand;
-use Turahe\Likeable\Contracts\Like as LikeContract;
-use Turahe\Likeable\Contracts\LikeableService as LikeableServiceContract;
-use Turahe\Likeable\Contracts\LikeCounter as LikeCounterContract;
 use Turahe\Likeable\Models\Like;
+use Illuminate\Support\ServiceProvider;
 use Turahe\Likeable\Models\LikeCounter;
 use Turahe\Likeable\Observers\LikeObserver;
 use Turahe\Likeable\Services\LikeableService;
-use Illuminate\Support\ServiceProvider;
+use Turahe\Likeable\Console\LikeableRecountCommand;
+use Turahe\Likeable\Contracts\Like as LikeContract;
+use Turahe\Likeable\Contracts\LikeCounter as LikeCounterContract;
+use Turahe\Likeable\Contracts\LikeableService as LikeableServiceContract;
 
 class LikeableServiceProvider extends ServiceProvider
 {
@@ -83,10 +83,10 @@ class LikeableServiceProvider extends ServiceProvider
     {
         $databasePath = __DIR__.'./../migrations';
         $this->loadMigrationsFrom($databasePath);
-        
+
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . './../migrations' => database_path('migrations'),
+                __DIR__.'./../migrations' => database_path('migrations'),
             ], 'migrations');
         }
     }
