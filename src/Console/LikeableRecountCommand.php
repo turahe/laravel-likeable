@@ -1,17 +1,16 @@
 <?php
 
-
 namespace Turahe\Likeable\Console;
 
-use Turahe\Likeable\Contracts\Likeable as LikeableContract;
-use Turahe\Likeable\Contracts\Like as LikeContract;
-use Turahe\Likeable\Contracts\LikeCounter as LikeCounterContract;
-use Turahe\Likeable\Exceptions\ModelInvalidException;
-use Turahe\Likeable\Services\LikeableService as LikeableServiceContract;
 use Illuminate\Console\Command;
-use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Contracts\Events\Dispatcher;
+use Turahe\Likeable\Contracts\Like as LikeContract;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Turahe\Likeable\Exceptions\ModelInvalidException;
+use Turahe\Likeable\Contracts\Likeable as LikeableContract;
+use Turahe\Likeable\Contracts\LikeCounter as LikeCounterContract;
+use Turahe\Likeable\Services\LikeableService as LikeableServiceContract;
 
 class LikeableRecountCommand extends Command
 {
@@ -97,7 +96,7 @@ class LikeableRecountCommand extends Command
 
         DB::table(app(LikeCounterContract::class)->getTable())->insert($counters);
 
-        $this->info('All [' . $modelType . '] records likes has been recounted.');
+        $this->info('All ['.$modelType.'] records likes has been recounted.');
     }
 
     /**
@@ -116,7 +115,7 @@ class LikeableRecountCommand extends Command
             $model = new $modelType;
             $modelType = $model->getMorphClass();
         } else {
-            if (!isset($morphMap[$modelType])) {
+            if (! isset($morphMap[$modelType])) {
                 throw new ModelInvalidException("[$modelType] class and morph map are not found.");
             }
 
@@ -124,11 +123,10 @@ class LikeableRecountCommand extends Command
             $model = new $modelClass;
         }
 
-        if (!$model instanceof LikeableContract) {
+        if (! $model instanceof LikeableContract) {
             throw new ModelInvalidException("[$modelType] not implements Likeable contract.");
         }
 
         return $modelType;
     }
-
 }

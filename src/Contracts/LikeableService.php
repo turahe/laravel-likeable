@@ -1,17 +1,13 @@
 <?php
 
-
 namespace Turahe\Likeable\Contracts;
 
-use Turahe\Likeable\Contracts\Likeable as LikeableContract;
 use Illuminate\Database\Eloquent\Builder;
+use Turahe\Likeable\Contracts\Likeable as LikeableContract;
 
 /**
  * Interface LikeableService.
- *
- * @package Turahe\Likeable\Contracts
  */
-
 interface LikeableService
 {
     /**
@@ -156,5 +152,4 @@ interface LikeableService
      * @return array
      */
     public function fetchLikesCounters($likeableType, $likeType);
-
 }

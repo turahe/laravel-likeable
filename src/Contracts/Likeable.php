@@ -1,13 +1,11 @@
 <?php
 
-
 namespace Turahe\Likeable\Contracts;
 
 use Illuminate\Database\Eloquent\Builder;
+
 /**
  * Interface Likeable.
- *
- * @package Turahe\Likeable\Contracts
  */
 interface Likeable
 {
@@ -238,5 +236,4 @@ interface Likeable
      * @return void
      */
     public function removeDislikes();
-
 }
