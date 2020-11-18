@@ -4,6 +4,8 @@
 [![Total Downloads](https://poser.pugx.org/turahe/laravel-likeable/downloads)](//packagist.org/packages/turahe/laravel-likeable)
 [![License](https://poser.pugx.org/turahe/laravel-likeable/license)](//packagist.org/packages/turahe/laravel-likeable)
 [![Build Status](https://travis-ci.org/turahe/laravel-likeable.svg?branch=master)](https://travis-ci.org/turahe/laravel-likeable)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/turahe/laravel-likeable/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/turahe/laravel-likeable/?branch=master)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fturahe%2Flaravel-likeable.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fturahe%2Flaravel-likeable?ref=badge_shield)
 ![PHP Composer](https://github.com/turahe/laravel-likeable/workflows/PHP%20Composer/badge.svg)
 
 Laravel Likeable simplify management of Eloquent model's likes & dislikes. Make any model `likeable` & `dislikeable` in a minute!
