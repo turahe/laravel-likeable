@@ -1,18 +1,17 @@
 <?php
 
-
 namespace Turahe\Likeable\Services;
 
-use Turahe\Likeable\Contracts\Likeable as LikeableContract;
-use Turahe\Likeable\Contracts\Like as LikeContract;
-use Turahe\Likeable\Contracts\LikeableService as LikeableServiceContract;
-use Turahe\Likeable\Contracts\LikeCounter as LikeCounterContract;
+use Illuminate\Support\Facades\DB;
 use Turahe\Likeable\Enums\LikeType;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\JoinClause;
+use Turahe\Likeable\Contracts\Like as LikeContract;
 use Turahe\Likeable\Exceptions\LikerNotDefinedException;
 use Turahe\Likeable\Exceptions\LikeTypeInvalidException;
-use Illuminate\Database\Query\JoinClause;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Eloquent\Builder;
+use Turahe\Likeable\Contracts\Likeable as LikeableContract;
+use Turahe\Likeable\Contracts\LikeCounter as LikeCounterContract;
+use Turahe\Likeable\Contracts\LikeableService as LikeableServiceContract;
 
 class LikeableService implements LikeableServiceContract
 {
@@ -35,7 +34,7 @@ class LikeableService implements LikeableServiceContract
             'user_id' => $userId,
         ])->first();
 
-        if (!$like) {
+        if (! $like) {
             $likeable->likes()->create([
                 'user_id' => $userId,
                 'type_id' => $this->getLikeTypeId($type),
@@ -74,7 +73,7 @@ class LikeableService implements LikeableServiceContract
             'type_id' => $this->getLikeTypeId($type),
         ])->first();
 
-        if (!$like) {
+        if (! $like) {
             return;
         }
 
@@ -124,14 +123,14 @@ class LikeableService implements LikeableServiceContract
             $userId = $this->loggedInUserId();
         }
 
-        if (!$userId) {
+        if (! $userId) {
             return false;
         }
 
         $typeId = $this->getLikeTypeId($type);
 
         $exists = $this->hasLikeOrDislikeInLoadedRelation($likeable, $typeId, $userId);
-        if (!is_null($exists)) {
+        if (! is_null($exists)) {
             return $exists;
         }
 
@@ -151,7 +150,7 @@ class LikeableService implements LikeableServiceContract
     {
         $counter = $likeable->likesCounter()->first();
 
-        if (!$counter) {
+        if (! $counter) {
             return;
         }
 
@@ -168,7 +167,7 @@ class LikeableService implements LikeableServiceContract
     {
         $counter = $likeable->likesCounter()->first();
 
-        if (!$counter) {
+        if (! $counter) {
             $counter = $likeable->likesCounter()->create([
                 'count' => 0,
                 'type_id' => LikeType::LIKE,
@@ -188,7 +187,7 @@ class LikeableService implements LikeableServiceContract
     {
         $counter = $likeable->dislikesCounter()->first();
 
-        if (!$counter) {
+        if (! $counter) {
             return;
         }
 
@@ -205,7 +204,7 @@ class LikeableService implements LikeableServiceContract
     {
         $counter = $likeable->dislikesCounter()->first();
 
-        if (!$counter) {
+        if (! $counter) {
             $counter = $likeable->dislikesCounter()->create([
                 'count' => 0,
                 'type_id' => LikeType::DISLIKE,
@@ -234,7 +233,7 @@ class LikeableService implements LikeableServiceContract
 
         /** @var \Illuminate\Database\Eloquent\Builder $counters */
         $counters = app(LikeCounterContract::class)->where('likeable_type', $likeableType);
-        if (!is_null($type)) {
+        if (! is_null($type)) {
             $counters->where('type_id', $this->getLikeTypeId($type));
         }
         $counters->delete();
@@ -327,7 +326,7 @@ class LikeableService implements LikeableServiceContract
         $likeable = $query->getModel();
 
         return $query
-            ->select($likeable->getTable() . '.*', 'like_counter.count')
+            ->select($likeable->getTable().'.*', 'like_counter.count')
             ->leftJoin('like_counter', function (JoinClause $join) use ($likeable, $likeType) {
                 $join
                     ->on('like_counter.likeable_id', '=', "{$likeable->getTable()}.{$likeable->getKeyName()}")
@@ -358,7 +357,7 @@ class LikeableService implements LikeableServiceContract
             ])
             ->where('likeable_type', $likeableType);
 
-        if (!is_null($likeType)) {
+        if (! is_null($likeType)) {
             $likesCount->where('type_id', $this->getLikeTypeId($likeType));
         }
 
@@ -381,7 +380,7 @@ class LikeableService implements LikeableServiceContract
             $userId = $this->loggedInUserId();
         }
 
-        if (!$userId) {
+        if (! $userId) {
             throw new LikerNotDefinedException();
         }
 
@@ -410,7 +409,7 @@ class LikeableService implements LikeableServiceContract
     protected function getLikeTypeId($type)
     {
         $type = strtoupper($type);
-        if (!defined("\\Turahe\\Likeable\\Enums\\LikeType::{$type}")) {
+        if (! defined("\\Turahe\\Likeable\\Enums\\LikeType::{$type}")) {
             throw new LikeTypeInvalidException("Like type `{$type}` not exist");
         }
 
@@ -440,7 +439,7 @@ class LikeableService implements LikeableServiceContract
         $relations = $this->likeTypeRelations($typeId);
 
         foreach ($relations as $relation) {
-            if (!$likeable->relationLoaded($relation)) {
+            if (! $likeable->relationLoaded($relation)) {
                 continue;
             }
 
@@ -473,11 +472,10 @@ class LikeableService implements LikeableServiceContract
             ],
         ];
 
-        if (!isset($relations[$type])) {
+        if (! isset($relations[$type])) {
             throw new LikeTypeInvalidException("Like type `{$type}` not supported");
         }
 
         return $relations[$type];
     }
-
 }
