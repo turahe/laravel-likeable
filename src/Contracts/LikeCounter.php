@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Turahe\Likeable\Contracts;
 
 /**
@@ -8,7 +7,6 @@ namespace Turahe\Likeable\Contracts;
  *
  * @property int type_id
  * @property int count
- * @package Turahe\Likeable\Contracts
  */
 interface LikeCounter
 {
@@ -18,5 +16,4 @@ interface LikeCounter
      * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
     public function likeable();
-
 }

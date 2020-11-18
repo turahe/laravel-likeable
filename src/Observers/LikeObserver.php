@@ -1,19 +1,17 @@
 <?php
 
-
 namespace Turahe\Likeable\Observers;
 
 use Turahe\Likeable\Enums\LikeType;
-use Turahe\Likeable\Events\ModelWasDisliked;
 use Turahe\Likeable\Events\ModelWasLiked;
-use Turahe\Likeable\Events\ModelWasUndisliked;
 use Turahe\Likeable\Events\ModelWasUnliked;
+use Turahe\Likeable\Events\ModelWasDisliked;
+use Turahe\Likeable\Events\ModelWasUndisliked;
 use Turahe\Likeable\Contracts\Like as LikeContract;
 use Turahe\Likeable\Contracts\LikeableService as LikeableServiceContract;
 
 /**
- * Class LikeObserver
- * @package Turahe\Likeable\Observers
+ * Class LikeObserver.
  */
 class LikeObserver
 {
@@ -50,5 +48,4 @@ class LikeObserver
             app(LikeableServiceContract::class)->decrementDislikesCount($like->likeable);
         }
     }
-
 }

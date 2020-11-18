@@ -1,13 +1,11 @@
 <?php
 
-
 namespace Turahe\Likeable\Events;
 
 use Turahe\Likeable\Contracts\Likeable as LikeableContract;
 
 /**
- * Class ModelWasLiked
- * @package Turahe\Likeable\Events
+ * Class ModelWasLiked.
  */
 class ModelWasLiked
 {
@@ -37,5 +35,4 @@ class ModelWasLiked
         $this->model = $likeable;
         $this->likerId = $likerId;
     }
-
 }
