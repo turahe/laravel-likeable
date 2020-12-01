@@ -6,13 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Turahe\Likeable\Contracts\LikeCounter as LikeCounterContract;
 
 /**
- * Class LikeCounter
- * @package Turahe\Likeable\Models
+ * Class LikeCounter.
  */
 class LikeCounter extends Model implements LikeCounterContract
 {
-	protected $table = 'like_counters';
-	protected $fillable = [
+    protected $table = 'like_counters';
+    protected $fillable = [
         'type_id',
         'count',
     ];
@@ -35,5 +34,4 @@ class LikeCounter extends Model implements LikeCounterContract
     {
         return $this->morphTo();
     }
-
 }

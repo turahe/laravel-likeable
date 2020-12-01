@@ -1,13 +1,11 @@
 <?php
 
-
 namespace Turahe\Likeable\Observers;
 
 use Turahe\Likeable\Contracts\Likeable as LikeableContract;
 
 /**
- * Class ModelObserver
- * @package Turahe\Likeable\Observers
+ * Class ModelObserver.
  */
 class ModelObserver
 {
@@ -19,7 +17,7 @@ class ModelObserver
      */
     public function deleted(LikeableContract $likeable)
     {
-        if (!$this->removeLikesOnDelete($likeable)) {
+        if (! $this->removeLikesOnDelete($likeable)) {
             return;
         }
 
@@ -36,5 +34,4 @@ class ModelObserver
     {
         return isset($likeable->removeLikesOnDelete) ? $likeable->removeLikesOnDelete : true;
     }
-
 }
