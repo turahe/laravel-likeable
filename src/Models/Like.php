@@ -2,11 +2,10 @@
 
 namespace Turahe\Likeable\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-
+use Turahe\Likeable\Contracts\Like as LikeContract;
 
 /**
  * Class Like
