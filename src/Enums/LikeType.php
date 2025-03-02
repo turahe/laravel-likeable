@@ -5,8 +5,8 @@ namespace Turahe\Likeable\Enums;
 /**
  * Class LikeType.
  */
-class LikeType
+enum LikeType: string
 {
-    const LIKE = 'like';
-    const DISLIKE = 'dislike';
+    case LIKE = 'like';
+    case DISLIKE = 'dislike';
 }

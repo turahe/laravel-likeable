@@ -3,7 +3,7 @@
 [![Latest Stable Version](https://poser.pugx.org/turahe/laravel-likeable/v)](//packagist.org/packages/turahe/laravel-likeable)
 [![Total Downloads](https://poser.pugx.org/turahe/laravel-likeable/downloads)](//packagist.org/packages/turahe/laravel-likeable)
 [![License](https://poser.pugx.org/turahe/laravel-likeable/license)](//packagist.org/packages/turahe/laravel-likeable)
-[![Build Status](https://travis-ci.org/turahe/laravel-likeable.svg?branch=master)](https://travis-ci.org/turahe/laravel-likeable)
+[![PHP Composer](https://github.com/turahe/laravel-likeable/actions/workflows/php.yml/badge.svg)](https://github.com/turahe/laravel-likeable/actions/workflows/php.yml)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/turahe/laravel-likeable/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/turahe/laravel-likeable/?branch=master)
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fturahe%2Flaravel-likeable.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fturahe%2Flaravel-likeable?ref=badge_shield)
 [![StyleCI](https://github.styleci.io/repos/298268837/shield?branch=master)](https://github.styleci.io/repos/298268837?branch=master)
