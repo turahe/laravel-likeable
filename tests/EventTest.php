@@ -2,20 +2,19 @@
 
 namespace Turahe\Tests\Likeable;
 
-use Turahe\Likeable\Models\Like;
-use Turahe\Likeable\Enums\LikeType;
-use Illuminate\Support\Facades\Schema;
-use Turahe\Tests\Likeable\Models\Stub;
 use Illuminate\Database\Eloquent\Model;
-use Turahe\Likeable\Events\ModelWasLiked;
-use Turahe\Likeable\Events\ModelWasUnliked;
-use Turahe\Likeable\Events\ModelWasDisliked;
-use Turahe\Likeable\Events\ModelWasUndisliked;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Schema;
+use Turahe\Likeable\Events\ModelWasDisliked;
+use Turahe\Likeable\Events\ModelWasLiked;
+use Turahe\Likeable\Events\ModelWasUndisliked;
+use Turahe\Likeable\Events\ModelWasUnliked;
+use Turahe\Likeable\Models\Like;
+use Turahe\Tests\Likeable\Models\Stub;
 
 class EventTest extends BaseTestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -40,7 +39,7 @@ class EventTest extends BaseTestCase
         });
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         Schema::drop('books');
         Schema::drop('users');
@@ -51,7 +50,7 @@ class EventTest extends BaseTestCase
      */
     public function test_model_was_liked_event()
     {
-        $stub = Stub::create(['name'=>123]);
+        $stub = Stub::create(['name' => 123]);
 
         $stub->like(1);
 
@@ -67,7 +66,7 @@ class EventTest extends BaseTestCase
      */
     public function test_model_was_unliked_event()
     {
-        $stub = Stub::create(['name'=>123]);
+        $stub = Stub::create(['name' => 123]);
         $stub->like(1);
 
         $stub->unlike(1);
@@ -84,7 +83,7 @@ class EventTest extends BaseTestCase
      */
     public function test_model_was_disliked_event()
     {
-        $stub = Stub::create(['name'=>123]);
+        $stub = Stub::create(['name' => 123]);
 
         $stub->dislike(1);
 
@@ -100,7 +99,7 @@ class EventTest extends BaseTestCase
      */
     public function test_model_was_undisliked_event()
     {
-        $stub = Stub::create(['name'=>123]);
+        $stub = Stub::create(['name' => 123]);
         $stub->dislike(1);
 
         $stub->undislike(1);
@@ -117,7 +116,7 @@ class EventTest extends BaseTestCase
      */
     public function test_toggle_like_fires_correct_events()
     {
-        $stub = Stub::create(['name'=>123]);
+        $stub = Stub::create(['name' => 123]);
 
         // First toggle should fire ModelWasLiked
         $stub->likeToggle(1);
@@ -138,7 +137,7 @@ class EventTest extends BaseTestCase
      */
     public function test_toggle_dislike_fires_correct_events()
     {
-        $stub = Stub::create(['name'=>123]);
+        $stub = Stub::create(['name' => 123]);
 
         // First toggle should fire ModelWasDisliked
         $stub->dislikeToggle(1);
@@ -159,7 +158,7 @@ class EventTest extends BaseTestCase
      */
     public function test_multiple_likes_fire_multiple_events()
     {
-        $stub = Stub::create(['name'=>123]);
+        $stub = Stub::create(['name' => 123]);
 
         $stub->like(1);
         $stub->like(2);
@@ -173,7 +172,7 @@ class EventTest extends BaseTestCase
      */
     public function test_multiple_dislikes_fire_multiple_events()
     {
-        $stub = Stub::create(['name'=>123]);
+        $stub = Stub::create(['name' => 123]);
 
         $stub->dislike(1);
         $stub->dislike(2);
@@ -187,7 +186,7 @@ class EventTest extends BaseTestCase
      */
     public function test_duplicate_like_does_not_fire_event()
     {
-        $stub = Stub::create(['name'=>123]);
+        $stub = Stub::create(['name' => 123]);
 
         $stub->like(1);
         Event::assertDispatchedTimes(ModelWasLiked::class, 1);
@@ -202,7 +201,7 @@ class EventTest extends BaseTestCase
      */
     public function test_duplicate_dislike_does_not_fire_event()
     {
-        $stub = Stub::create(['name'=>123]);
+        $stub = Stub::create(['name' => 123]);
 
         $stub->dislike(1);
         Event::assertDispatchedTimes(ModelWasDisliked::class, 1);
@@ -217,7 +216,7 @@ class EventTest extends BaseTestCase
      */
     public function test_unlike_without_like_does_not_fire_event()
     {
-        $stub = Stub::create(['name'=>123]);
+        $stub = Stub::create(['name' => 123]);
 
         $stub->unlike(1);
 
@@ -229,10 +228,10 @@ class EventTest extends BaseTestCase
      */
     public function test_undislike_without_dislike_does_not_fire_event()
     {
-        $stub = Stub::create(['name'=>123]);
+        $stub = Stub::create(['name' => 123]);
 
         $stub->undislike(1);
 
         Event::assertNotDispatched(ModelWasUndisliked::class);
     }
-} 
+}

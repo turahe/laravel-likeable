@@ -3,13 +3,13 @@
 namespace Turahe\Likeable\Console;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Contracts\Events\Dispatcher;
-use Turahe\Likeable\Contracts\Like as LikeContract;
 use Illuminate\Database\Eloquent\Relations\Relation;
-use Turahe\Likeable\Exceptions\ModelInvalidException;
+use Illuminate\Support\Facades\DB;
+use Turahe\Likeable\Contracts\Like as LikeContract;
 use Turahe\Likeable\Contracts\Likeable as LikeableContract;
 use Turahe\Likeable\Contracts\LikeCounter as LikeCounterContract;
+use Turahe\Likeable\Exceptions\ModelInvalidException;
 use Turahe\Likeable\Services\LikeableService as LikeableServiceContract;
 
 class LikeableRecountCommand extends Command
@@ -45,7 +45,6 @@ class LikeableRecountCommand extends Command
     /**
      * Execute the console command.
      *
-     * @param \Illuminate\Contracts\Events\Dispatcher $events
      * @return void
      *
      * @throws \Turahe\Likeable\Exceptions\ModelInvalidException
@@ -81,7 +80,7 @@ class LikeableRecountCommand extends Command
     /**
      * Recount likes of model type.
      *
-     * @param string $modelType
+     * @param  string  $modelType
      * @return void
      *
      * @throws \Turahe\Likeable\Exceptions\ModelInvalidException
@@ -102,7 +101,7 @@ class LikeableRecountCommand extends Command
     /**
      * Normalize likeable model type.
      *
-     * @param string $modelType
+     * @param  string  $modelType
      * @return string
      *
      * @throws \Turahe\Likeable\Exceptions\ModelInvalidException
@@ -112,7 +111,7 @@ class LikeableRecountCommand extends Command
         $morphMap = Relation::morphMap();
 
         if (class_exists($modelType)) {
-            $model = new $modelType;
+            $model = new $modelType();
             $modelType = $model->getMorphClass();
         } else {
             if (! isset($morphMap[$modelType])) {
@@ -120,7 +119,7 @@ class LikeableRecountCommand extends Command
             }
 
             $modelClass = $morphMap[$modelType];
-            $model = new $modelClass;
+            $model = new $modelClass();
         }
 
         if (! $model instanceof LikeableContract) {

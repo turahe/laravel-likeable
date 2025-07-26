@@ -16,6 +16,7 @@ use Turahe\Likeable\Contracts\LikeCounter as LikeCounterContract;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read Model|\Eloquent $likeable
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|LikeCounter newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|LikeCounter newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|LikeCounter query()
@@ -26,11 +27,13 @@ use Turahe\Likeable\Contracts\LikeCounter as LikeCounterContract;
  * @method static \Illuminate\Database\Eloquent\Builder|LikeCounter whereLikeableType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|LikeCounter whereTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|LikeCounter whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class LikeCounter extends Model implements LikeCounterContract
 {
     protected $table = 'like_counters';
+
     protected $fillable = [
         'type_id',
         'count',
@@ -58,13 +61,13 @@ class LikeCounter extends Model implements LikeCounterContract
     /**
      * Rebuild the like counters for a given model class.
      *
-     * @param string $modelClass
+     * @param  string  $modelClass
      * @return void
      */
     public static function rebuild($modelClass)
     {
         if (class_exists($modelClass)) {
-            $model = new $modelClass;
+            $model = new $modelClass();
             $likeableType = $model->getMorphClass();
         } else {
             $likeableType = $modelClass;

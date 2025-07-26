@@ -26,8 +26,7 @@ class ModelWasDisliked
     /**
      * Create a new event instance.
      *
-     * @param \Turahe\Likeable\Contracts\Likeable $likeable
-     * @param int $likerId
+     * @param  int  $userId
      * @return void
      */
     public function __construct(LikeableContract $likeable, $userId)

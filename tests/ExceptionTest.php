@@ -64,4 +64,4 @@ class ExceptionTest extends BaseTestCase
         $this->assertEquals('Custom message', $exception->getMessage());
         $this->assertEquals(500, $exception->getCode());
     }
-} 
+}

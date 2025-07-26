@@ -110,8 +110,7 @@ interface Likeable
     /**
      * Fetch records that are liked by a given user id.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param int|null $userId
+     * @param  int|null  $userId
      * @return \Illuminate\Database\Eloquent\Builder
      *
      * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
@@ -121,8 +120,7 @@ interface Likeable
     /**
      * Fetch records that are disliked by a given user id.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param int|null $userId
+     * @param  int|null  $userId
      * @return \Illuminate\Database\Eloquent\Builder
      *
      * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
@@ -132,8 +130,7 @@ interface Likeable
     /**
      * Fetch records sorted by likes count.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string $direction
+     * @param  string  $direction
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeOrderByLikesCount(Builder $query, $direction = 'desc');
@@ -141,8 +138,7 @@ interface Likeable
     /**
      * Fetch records sorted by likes count.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string $direction
+     * @param  string  $direction
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeOrderByDislikesCount(Builder $query, $direction = 'desc');
@@ -150,7 +146,7 @@ interface Likeable
     /**
      * Add a like for model by the given user.
      *
-     * @param mixed $userId If null will use currently logged in user.
+     * @param  mixed  $userId  If null will use currently logged in user.
      * @return void
      *
      * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
@@ -160,7 +156,7 @@ interface Likeable
     /**
      * Remove a like from this record for the given user.
      *
-     * @param int|null $userId If null will use currently logged in user.
+     * @param  int|null  $userId  If null will use currently logged in user.
      * @return void
      *
      * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
@@ -170,7 +166,7 @@ interface Likeable
     /**
      * Toggle like for model by the given user.
      *
-     * @param mixed $userId If null will use currently logged in user.
+     * @param  mixed  $userId  If null will use currently logged in user.
      * @return void
      *
      * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
@@ -180,7 +176,7 @@ interface Likeable
     /**
      * Has the user already liked likeable model.
      *
-     * @param int|null $userId
+     * @param  int|null  $userId
      * @return bool
      */
     public function liked($userId = null);
@@ -195,7 +191,7 @@ interface Likeable
     /**
      * Add a dislike for model by the given user.
      *
-     * @param mixed $userId If null will use currently logged in user.
+     * @param  mixed  $userId  If null will use currently logged in user.
      * @return void
      *
      * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
@@ -205,7 +201,7 @@ interface Likeable
     /**
      * Remove a dislike from this record for the given user.
      *
-     * @param int|null $userId If null will use currently logged in user.
+     * @param  int|null  $userId  If null will use currently logged in user.
      * @return void
      *
      * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
@@ -215,7 +211,7 @@ interface Likeable
     /**
      * Toggle dislike for model by the given user.
      *
-     * @param mixed $userId If null will use currently logged in user.
+     * @param  mixed  $userId  If null will use currently logged in user.
      * @return void
      *
      * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
@@ -225,7 +221,7 @@ interface Likeable
     /**
      * Has the user already disliked likeable model.
      *
-     * @param int|null $userId
+     * @param  int|null  $userId
      * @return bool
      */
     public function disliked($userId = null);

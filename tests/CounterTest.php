@@ -2,8 +2,8 @@
 
 namespace Turahe\Tests\Likeable;
 
-use Turahe\Tests\Likeable\Models\Stub;
 use Illuminate\Support\Facades\Schema;
+use Turahe\Tests\Likeable\Models\Stub;
 
 class CounterTest extends BaseTestCase
 {
@@ -18,7 +18,7 @@ class CounterTest extends BaseTestCase
         });
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         Schema::drop('books');
     }
@@ -26,27 +26,27 @@ class CounterTest extends BaseTestCase
     /**
      * @runInSeparateProcess
      */
-    public function testLike()
+    public function test_like()
     {
         $likeable = Stub::create(['name' => 'test']);
-        
+
         $likeable->like(1);
-        
+
         $this->assertEquals(1, $likeable->likes_count);
     }
 
     /**
      * @runInSeparateProcess
      */
-    public function testUnlike()
+    public function test_unlike()
     {
         $likeable = Stub::create(['name' => 'test']);
-        
+
         $likeable->like(1);
         $this->assertEquals(1, $likeable->likes_count);
-        
+
         $likeable->unlike(1);
-        
+
         $this->assertEquals(0, $likeable->likes_count);
     }
 }

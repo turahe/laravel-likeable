@@ -2,25 +2,23 @@
 
 namespace Turahe\Likeable\Services;
 
-use Illuminate\Support\Facades\DB;
-use Turahe\Likeable\Enums\LikeType;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\JoinClause;
+use Illuminate\Support\Facades\DB;
 use Turahe\Likeable\Contracts\Like as LikeContract;
+use Turahe\Likeable\Contracts\Likeable as LikeableContract;
+use Turahe\Likeable\Contracts\LikeableService as LikeableServiceContract;
+use Turahe\Likeable\Contracts\LikeCounter as LikeCounterContract;
+use Turahe\Likeable\Enums\LikeType;
 use Turahe\Likeable\Exceptions\LikerNotDefinedException;
 use Turahe\Likeable\Exceptions\LikeTypeInvalidException;
-use Turahe\Likeable\Contracts\Likeable as LikeableContract;
-use Turahe\Likeable\Contracts\LikeCounter as LikeCounterContract;
-use Turahe\Likeable\Contracts\LikeableService as LikeableServiceContract;
 
 class LikeableService implements LikeableServiceContract
 {
     /**
      * Add a like to likeable model by user.
      *
-     * @param \Turahe\Likeable\Contracts\Likeable $likeable
-     * @param LikeType $type
-     * @param string $userId
+     * @param  int|string|null  $userId
      * @return void
      *
      * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
@@ -86,9 +84,7 @@ class LikeableService implements LikeableServiceContract
     /**
      * Remove a like to likeable model by user.
      *
-     * @param \Turahe\Likeable\Contracts\Likeable $likeable
-     * @param LikeType $type
-     * @param int|null $userId
+     * @param  int|null  $userId
      * @return void
      *
      * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
@@ -98,7 +94,7 @@ class LikeableService implements LikeableServiceContract
     {
         $userId = $this->getLikerUserId($userId);
         $typeId = $this->getLikeTypeId($type);
-        
+
         $like = $likeable->likesAndDislikes()->where([
             'user_id' => $userId,
             'type_id' => $typeId,
@@ -127,9 +123,7 @@ class LikeableService implements LikeableServiceContract
     /**
      * Toggle like for model by the given user.
      *
-     * @param \Turahe\Likeable\Contracts\Likeable $likeable
-     * @param LikeType $type
-     * @param string $userId
+     * @param  string  $userId
      * @return void
      *
      * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
@@ -154,9 +148,7 @@ class LikeableService implements LikeableServiceContract
     /**
      * Has the user already liked likeable model.
      *
-     * @param \Turahe\Likeable\Contracts\Likeable $likeable
-     * @param LikeType $type
-     * @param int|null $userId
+     * @param  int|null  $userId
      * @return bool
      *
      * @throws \Turahe\Likeable\Exceptions\LikeTypeInvalidException
@@ -187,7 +179,6 @@ class LikeableService implements LikeableServiceContract
     /**
      * Decrement the total like count stored in the counter.
      *
-     * @param \Turahe\Likeable\Contracts\Likeable $likeable
      * @return void
      */
     public function decrementLikesCount(LikeableContract $likeable)
@@ -199,7 +190,7 @@ class LikeableService implements LikeableServiceContract
         }
 
         $counter->decrement('count');
-        
+
         // Refresh the relationship to reflect the updated count
         $likeable->load('likesCounter');
     }
@@ -207,7 +198,6 @@ class LikeableService implements LikeableServiceContract
     /**
      * Increment the total like count stored in the counter.
      *
-     * @param \Turahe\Likeable\Contracts\Likeable $likeable
      * @return void
      */
     public function incrementLikesCount(LikeableContract $likeable)
@@ -227,7 +217,6 @@ class LikeableService implements LikeableServiceContract
     /**
      * Decrement the total dislike count stored in the counter.
      *
-     * @param \Turahe\Likeable\Contracts\Likeable $likeable
      * @return void
      */
     public function decrementDislikesCount(LikeableContract $likeable)
@@ -242,7 +231,7 @@ class LikeableService implements LikeableServiceContract
 
         // Refresh the relationship to reflect the updated count
         $likeable->load('dislikesCounter');
-        
+
         // If counter reaches 0, delete it to maintain consistency
         if ($counter->fresh()->count <= 0) {
             $counter->delete();
@@ -253,7 +242,6 @@ class LikeableService implements LikeableServiceContract
     /**
      * Increment the total dislike count stored in the counter.
      *
-     * @param \Turahe\Likeable\Contracts\Likeable $likeable
      * @return void
      */
     public function incrementDislikesCount(LikeableContract $likeable)
@@ -273,8 +261,8 @@ class LikeableService implements LikeableServiceContract
     /**
      * Remove like counters by likeable type.
      *
-     * @param string $likeableType
-     * @param string|null $type
+     * @param  string  $likeableType
+     * @param  string|null  $type
      * @return void
      *
      * @throws \Turahe\Likeable\Exceptions\LikeTypeInvalidException
@@ -283,7 +271,7 @@ class LikeableService implements LikeableServiceContract
     {
         if (class_exists($likeableType)) {
             /** @var \Turahe\Likeable\Contracts\Likeable $likeable */
-            $likeable = new $likeableType;
+            $likeable = new $likeableType();
             $likeableType = $likeable->getMorphClass();
         }
 
@@ -298,8 +286,6 @@ class LikeableService implements LikeableServiceContract
     /**
      * Remove all likes from likeable model.
      *
-     * @param \Turahe\Likeable\Contracts\Likeable $likeable
-     * @param LikeType $type
      * @return void
      *
      * @throws \Turahe\Likeable\Exceptions\LikeTypeInvalidException
@@ -322,7 +308,6 @@ class LikeableService implements LikeableServiceContract
     /**
      * Get collection of users who liked entity.
      *
-     * @param \Turahe\Likeable\Contracts\Likeable $likeable
      * @return \Illuminate\Support\Collection
      */
     public function collectLikersOf(LikeableContract $likeable)
@@ -337,7 +322,6 @@ class LikeableService implements LikeableServiceContract
     /**
      * Get collection of users who disliked entity.
      *
-     * @param \Turahe\Likeable\Contracts\Likeable $likeable
      * @return \Illuminate\Support\Collection
      */
     public function collectDislikersOf(LikeableContract $likeable)
@@ -352,9 +336,7 @@ class LikeableService implements LikeableServiceContract
     /**
      * Fetch records that are liked by a given user id.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param LikeType $type
-     * @param int|null $userId
+     * @param  int|null  $userId
      * @return \Illuminate\Database\Eloquent\Builder
      *
      * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
@@ -372,9 +354,7 @@ class LikeableService implements LikeableServiceContract
     /**
      * Fetch records sorted by likes count.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param LikeType $likeType
-     * @param string $direction
+     * @param  string  $direction
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeOrderByLikesCount(Builder $query, LikeType $likeType, $direction = 'desc')
@@ -395,8 +375,8 @@ class LikeableService implements LikeableServiceContract
     /**
      * Fetch likes counters data.
      *
-     * @param string $likeableType
-     * @param string $likeType
+     * @param  string  $likeableType
+     * @param  string  $likeType
      * @return array
      *
      * @throws \Turahe\Likeable\Exceptions\LikeTypeInvalidException
@@ -425,8 +405,8 @@ class LikeableService implements LikeableServiceContract
     /**
      * Get current user id or get user id passed in.
      *
-     * @param int $userId
-     * @return int
+     * @param  int|string|null  $userId
+     * @return int|string
      *
      * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
      */
@@ -457,8 +437,9 @@ class LikeableService implements LikeableServiceContract
      * Get like type id from name or LikeType enum.
      *
      * @todo move to Enum class
-     * @param string|LikeType $type
-     * @return int
+     *
+     * @param  string|LikeType  $type
+     * @return string
      *
      * @throws \Turahe\Likeable\Exceptions\LikeTypeInvalidException
      */
@@ -469,9 +450,10 @@ class LikeableService implements LikeableServiceContract
         } else {
             $typeName = strtoupper($type);
         }
-        if (!defined("\\Turahe\\Likeable\\Enums\\LikeType::{$typeName}")) {
+        if (! defined("\\Turahe\\Likeable\\Enums\\LikeType::{$typeName}")) {
             throw new LikeTypeInvalidException("Like type `{$typeName}` not exist");
         }
+
         return constant("\\Turahe\\Likeable\\Enums\\LikeType::{$typeName}")->value;
     }
 
@@ -486,9 +468,8 @@ class LikeableService implements LikeableServiceContract
     }
 
     /**
-     * @param \Turahe\Likeable\Contracts\Likeable $likeable
-     * @param string $typeId
-     * @param int $userId
+     * @param  string  $typeId
+     * @param  int|string  $userId
      * @return bool|null
      *
      * @throws \Turahe\Likeable\Exceptions\LikeTypeInvalidException
@@ -513,7 +494,7 @@ class LikeableService implements LikeableServiceContract
     /**
      * Resolve list of likeable relations by like type.
      *
-     * @param string|LikeType $type
+     * @param  string|LikeType  $type
      * @return array
      *
      * @throws \Turahe\Likeable\Exceptions\LikeTypeInvalidException
@@ -522,8 +503,8 @@ class LikeableService implements LikeableServiceContract
     {
         if ($type instanceof LikeType) {
             $typeKey = $type->value;
-        } elseif (defined("\\Turahe\\Likeable\\Enums\\LikeType::" . strtoupper($type))) {
-            $typeKey = constant("\\Turahe\\Likeable\\Enums\\LikeType::" . strtoupper($type))->value;
+        } elseif (defined('\\Turahe\\Likeable\\Enums\\LikeType::'.strtoupper($type))) {
+            $typeKey = constant('\\Turahe\\Likeable\\Enums\\LikeType::'.strtoupper($type))->value;
         } else {
             throw new LikeTypeInvalidException("Like type `{$type}` not supported");
         }
@@ -537,9 +518,10 @@ class LikeableService implements LikeableServiceContract
                 'likesAndDislikes',
             ],
         ];
-        if (!isset($relations[$typeKey])) {
+        if (! isset($relations[$typeKey])) {
             throw new LikeTypeInvalidException("Like type `{$type}` not supported");
         }
+
         return $relations[$typeKey];
     }
 }

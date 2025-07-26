@@ -2,15 +2,14 @@
 
 namespace Turahe\Tests\Likeable;
 
-use Turahe\Likeable\Models\Like;
-use Illuminate\Support\Facades\Schema;
-use Turahe\Tests\Likeable\Models\Stub;
 use Illuminate\Database\Eloquent\Model;
-use Turahe\Likeable\Models\LikeCounter;
+use Illuminate\Support\Facades\Schema;
+use Turahe\Likeable\Models\Like;
+use Turahe\Tests\Likeable\Models\Stub;
 
 class DislikeTest extends BaseTestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -34,7 +33,7 @@ class DislikeTest extends BaseTestCase
         });
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         Schema::drop('books');
         Schema::drop('users');
@@ -46,7 +45,7 @@ class DislikeTest extends BaseTestCase
     public function test_basic_dislike()
     {
         /** @var Stub $stub */
-        $stub = Stub::create(['name'=>123]);
+        $stub = Stub::create(['name' => 123]);
 
         $stub->dislike(1);
 
@@ -58,7 +57,7 @@ class DislikeTest extends BaseTestCase
      */
     public function test_multiple_dislikes()
     {
-        $stub = Stub::create(['name'=>123]);
+        $stub = Stub::create(['name' => 123]);
 
         $stub->dislike(1);
         $stub->dislike(2);
@@ -74,7 +73,7 @@ class DislikeTest extends BaseTestCase
     public function test_undislike()
     {
         /** @var Stub $stub */
-        $stub = Stub::create(['name'=>123]);
+        $stub = Stub::create(['name' => 123]);
 
         $stub->dislike(1);
         $this->assertEquals(1, $stub->dislikes_count);
@@ -90,7 +89,7 @@ class DislikeTest extends BaseTestCase
     public function test_dislike_toggle()
     {
         /** @var Stub $stub */
-        $stub = Stub::create(['name'=>123]);
+        $stub = Stub::create(['name' => 123]);
 
         // First toggle should add dislike
         $stub->dislikeToggle(1);
@@ -110,7 +109,7 @@ class DislikeTest extends BaseTestCase
     public function test_disliked_method()
     {
         /** @var Stub $stub */
-        $stub = Stub::create(['name'=>123]);
+        $stub = Stub::create(['name' => 123]);
 
         $this->assertFalse($stub->disliked(1));
 
@@ -128,7 +127,7 @@ class DislikeTest extends BaseTestCase
     public function test_get_disliked_attribute()
     {
         /** @var Stub $stub */
-        $stub = Stub::create(['name'=>123]);
+        $stub = Stub::create(['name' => 123]);
 
         $this->assertFalse($stub->disliked(1));
 
@@ -145,9 +144,9 @@ class DislikeTest extends BaseTestCase
      */
     public function test_where_disliked_by()
     {
-        Stub::create(['name'=>'A'])->dislike(1);
-        Stub::create(['name'=>'B'])->dislike(1);
-        Stub::create(['name'=>'C'])->dislike(1);
+        Stub::create(['name' => 'A'])->dislike(1);
+        Stub::create(['name' => 'B'])->dislike(1);
+        Stub::create(['name' => 'C'])->dislike(1);
 
         $stubs = Stub::whereDislikedBy(1)->get();
         $shouldBeEmpty = Stub::whereDislikedBy(2)->get();
@@ -162,7 +161,7 @@ class DislikeTest extends BaseTestCase
     public function test_remove_dislikes()
     {
         /** @var Stub $stub */
-        $stub = Stub::create(['name'=>123]);
+        $stub = Stub::create(['name' => 123]);
 
         $stub->dislike(1);
         $stub->dislike(2);
@@ -183,7 +182,7 @@ class DislikeTest extends BaseTestCase
     public function test_likes_diff_dislikes_count()
     {
         /** @var Stub $stub */
-        $stub = Stub::create(['name'=>123]);
+        $stub = Stub::create(['name' => 123]);
 
         $stub->like(1);
         $stub->like(2);
@@ -201,9 +200,9 @@ class DislikeTest extends BaseTestCase
      */
     public function test_order_by_dislikes_count()
     {
-        $stub1 = Stub::create(['name'=>'A']);
-        $stub2 = Stub::create(['name'=>'B']);
-        $stub3 = Stub::create(['name'=>'C']);
+        $stub1 = Stub::create(['name' => 'A']);
+        $stub2 = Stub::create(['name' => 'B']);
+        $stub3 = Stub::create(['name' => 'C']);
 
         $stub1->dislike(1);
         $stub1->dislike(2);
@@ -218,4 +217,4 @@ class DislikeTest extends BaseTestCase
         $this->assertEquals($stub1->id, $ordered->get(1)->id);  // 2 dislikes
         $this->assertEquals($stub2->id, $ordered->last()->id);  // 1 dislike
     }
-} 
+}

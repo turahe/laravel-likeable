@@ -2,13 +2,12 @@
 
 namespace Turahe\Likeable\Observers;
 
-use Turahe\Likeable\Enums\LikeType;
-use Turahe\Likeable\Events\ModelWasLiked;
-use Turahe\Likeable\Events\ModelWasUnliked;
-use Turahe\Likeable\Events\ModelWasDisliked;
-use Turahe\Likeable\Events\ModelWasUndisliked;
 use Turahe\Likeable\Contracts\Like as LikeContract;
-use Turahe\Likeable\Contracts\LikeableService as LikeableServiceContract;
+use Turahe\Likeable\Enums\LikeType;
+use Turahe\Likeable\Events\ModelWasDisliked;
+use Turahe\Likeable\Events\ModelWasLiked;
+use Turahe\Likeable\Events\ModelWasUndisliked;
+use Turahe\Likeable\Events\ModelWasUnliked;
 
 /**
  * Class LikeObserver.
@@ -18,7 +17,6 @@ class LikeObserver
     /**
      * Handle the created event for the model.
      *
-     * @param \Turahe\Likeable\Contracts\Like $like
      * @return void
      */
     public function created(LikeContract $like)
@@ -33,7 +31,6 @@ class LikeObserver
     /**
      * Handle the deleted event for the model.
      *
-     * @param \Turahe\Likeable\Contracts\Like $like
      * @return void
      */
     public function deleted(LikeContract $like)

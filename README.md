@@ -47,7 +47,9 @@ Laravel Likeable simplifies management of Eloquent model's likes & dislikes. Mak
   - [PSR-4 (Autoloading Standard)](http://www.php-fig.org/psr/psr-4/)
 - ✅ **Fully tested with PHPUnit**
 - ✅ **Continuous Integration with GitHub Actions**
-- ✅ **Security vulnerability scanning**
+- ✅ **Code style checks with PHP CS Fixer**
+- ✅ **Static analysis with Larastan**
+
 
 ## Installation
 
@@ -451,10 +453,9 @@ This package uses GitHub Actions for continuous integration. The CI pipeline inc
 
 ### CI Jobs
 1. **Tests**: Runs the full test suite across all PHP/Laravel combinations
-2. **Static Analysis**: Code style checking with PHP CS Fixer
-3. **Security**: Security vulnerability scanning
-4. **Lint**: PHP syntax validation
-5. **Coverage**: Code coverage reporting
+2. **Static Analysis**: Code style checking with PHP CS Fixer and Larastan
+3. **Lint**: PHP syntax validation
+4. **Coverage**: Code coverage reporting
 
 ### Local Development
 You can run the same checks locally:
@@ -467,7 +468,7 @@ $ composer check
 $ composer test          # Run tests
 $ composer test:coverage # Run tests with coverage
 $ composer lint          # Check code style
-$ composer security      # Security check
+$ composer analyse       # Run static analysis
 ```
 
 ### Code Coverage

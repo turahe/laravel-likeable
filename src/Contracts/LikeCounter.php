@@ -4,9 +4,6 @@ namespace Turahe\Likeable\Contracts;
 
 /**
  * Interface LikeCounter.
- *
- * @property int type_id
- * @property int count
  */
 interface LikeCounter
 {

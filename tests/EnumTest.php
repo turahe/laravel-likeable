@@ -30,7 +30,7 @@ class EnumTest extends BaseTestCase
     public function test_like_type_enum_cases()
     {
         $cases = LikeType::cases();
-        
+
         $this->assertCount(2, $cases);
         $this->assertContains(LikeType::LIKE, $cases);
         $this->assertContains(LikeType::DISLIKE, $cases);
@@ -82,4 +82,4 @@ class EnumTest extends BaseTestCase
         $this->assertEquals('"like"', json_encode(LikeType::LIKE));
         $this->assertEquals('"dislike"', json_encode(LikeType::DISLIKE));
     }
-} 
+}

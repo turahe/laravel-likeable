@@ -2,22 +2,20 @@
 
 namespace Turahe\Tests\Likeable;
 
-use Turahe\Likeable\Models\Like;
-use Illuminate\Support\Facades\Schema;
-use Turahe\Tests\Likeable\Models\Stub;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Schema;
+use Turahe\Likeable\Models\Like;
 use Turahe\Likeable\Models\LikeCounter;
-use Illuminate\Support\Facades\Artisan;
-use Turahe\Likeable\Console\LikeableRecountCommand;
+use Turahe\Tests\Likeable\Models\Stub;
 
 class ConsoleCommandTest extends BaseTestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
         Model::unguard();
-        
+
         // Register morph map for testing
         \Illuminate\Database\Eloquent\Relations\Relation::morphMap([
             'Stub' => Stub::class,
@@ -35,7 +33,7 @@ class ConsoleCommandTest extends BaseTestCase
         });
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         Schema::drop('books');
     }
@@ -46,8 +44,8 @@ class ConsoleCommandTest extends BaseTestCase
     public function test_recount_command_for_specific_model()
     {
         // Create some test data
-        $stub1 = Stub::create(['name'=>'A']);
-        $stub2 = Stub::create(['name'=>'B']);
+        $stub1 = Stub::create(['name' => 'A']);
+        $stub2 = Stub::create(['name' => 'B']);
 
         $stub1->like(1);
         $stub1->like(2);
@@ -74,8 +72,8 @@ class ConsoleCommandTest extends BaseTestCase
     public function test_recount_command_for_all_models()
     {
         // Create test data
-        $stub1 = Stub::create(['name'=>'A']);
-        $stub2 = Stub::create(['name'=>'B']);
+        $stub1 = Stub::create(['name' => 'A']);
+        $stub2 = Stub::create(['name' => 'B']);
 
         $stub1->like(1);
         $stub2->dislike(2);
@@ -101,8 +99,8 @@ class ConsoleCommandTest extends BaseTestCase
     public function test_recount_command_with_type_filter()
     {
         // Create test data
-        $stub1 = Stub::create(['name'=>'A']);
-        $stub2 = Stub::create(['name'=>'B']);
+        $stub1 = Stub::create(['name' => 'A']);
+        $stub2 = Stub::create(['name' => 'B']);
 
         $stub1->like(1);
         $stub1->dislike(2);
@@ -114,9 +112,9 @@ class ConsoleCommandTest extends BaseTestCase
         // Run the recount command for likes only
         $this->artisan('likeable:recount', [
             'model' => Stub::class,
-            'type' => 'like'
+            'type' => 'like',
         ])
-        ->assertExitCode(0);
+            ->assertExitCode(0);
 
         // Verify counters are rebuilt
         $stub1->refresh();
@@ -134,8 +132,8 @@ class ConsoleCommandTest extends BaseTestCase
     public function test_recount_command_with_dislike_type()
     {
         // Create test data
-        $stub1 = Stub::create(['name'=>'A']);
-        $stub2 = Stub::create(['name'=>'B']);
+        $stub1 = Stub::create(['name' => 'A']);
+        $stub2 = Stub::create(['name' => 'B']);
 
         $stub1->like(1);
         $stub1->dislike(2);
@@ -147,9 +145,9 @@ class ConsoleCommandTest extends BaseTestCase
         // Run the recount command for dislikes only
         $this->artisan('likeable:recount', [
             'model' => Stub::class,
-            'type' => 'dislike'
+            'type' => 'dislike',
         ])
-        ->assertExitCode(0);
+            ->assertExitCode(0);
 
         // Verify only dislike counters are rebuilt
         $stub1->refresh();
@@ -182,7 +180,7 @@ class ConsoleCommandTest extends BaseTestCase
     public function test_recount_command_with_model_alias()
     {
         // Create test data
-        $stub = Stub::create(['name'=>'A']);
+        $stub = Stub::create(['name' => 'A']);
         $stub->like(1);
 
         // Manually delete counters
@@ -196,4 +194,4 @@ class ConsoleCommandTest extends BaseTestCase
         $stub->refresh();
         $this->assertEquals(1, $stub->likes_count);
     }
-} 
+}

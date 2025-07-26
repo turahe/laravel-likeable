@@ -12,7 +12,6 @@ class ModelObserver
     /**
      * Handle the deleted event for the model.
      *
-     * @param \Turahe\Likeable\Contracts\Likeable $likeable
      * @return void
      */
     public function deleted(LikeableContract $likeable)
@@ -27,7 +26,6 @@ class ModelObserver
     /**
      * Should remove likes on model delete (defaults to true).
      *
-     * @param \Turahe\Likeable\Contracts\Likeable $likeable
      * @return bool
      */
     protected function removeLikesOnDelete(LikeableContract $likeable)

@@ -2,12 +2,12 @@
 
 namespace Turahe\Likeable\Traits;
 
-use Turahe\Likeable\Enums\LikeType;
 use Illuminate\Database\Eloquent\Builder;
-use Turahe\Likeable\Observers\ModelObserver;
 use Turahe\Likeable\Contracts\Like as LikeContract;
-use Turahe\Likeable\Contracts\LikeCounter as LikeCounterContract;
 use Turahe\Likeable\Contracts\LikeableService as LikeableServiceContract;
+use Turahe\Likeable\Contracts\LikeCounter as LikeCounterContract;
+use Turahe\Likeable\Enums\LikeType;
+use Turahe\Likeable\Observers\ModelObserver;
 
 trait Likeable
 {
@@ -103,7 +103,7 @@ trait Likeable
         if ($this->likesCounter) {
             return $this->likesCounter->count;
         }
-        
+
         // Fallback to counting actual likes if counter doesn't exist
         return $this->likes()->count();
     }
@@ -118,7 +118,7 @@ trait Likeable
         if ($this->dislikesCounter) {
             return $this->dislikesCounter->count;
         }
-        
+
         // Fallback to counting actual dislikes if counter doesn't exist
         return $this->dislikes()->count();
     }
@@ -156,8 +156,7 @@ trait Likeable
     /**
      * Fetch records that are liked by a given user id.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param int|null $userId
+     * @param  int|null  $userId
      * @return \Illuminate\Database\Eloquent\Builder
      *
      * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
@@ -171,8 +170,7 @@ trait Likeable
     /**
      * Fetch records that are disliked by a given user id.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param int|null $userId
+     * @param  int|null  $userId
      * @return \Illuminate\Database\Eloquent\Builder
      *
      * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
@@ -186,8 +184,7 @@ trait Likeable
     /**
      * Fetch records sorted by likes count.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string $direction
+     * @param  string  $direction
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeOrderByLikesCount(Builder $query, $direction = 'desc')
@@ -199,8 +196,7 @@ trait Likeable
     /**
      * Fetch records sorted by likes count.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param string $direction
+     * @param  string  $direction
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeOrderByDislikesCount(Builder $query, $direction = 'desc')
@@ -212,7 +208,7 @@ trait Likeable
     /**
      * Add a like for model by the given user.
      *
-     * @param mixed $userId If null will use currently logged in user.
+     * @param  mixed  $userId  If null will use currently logged in user.
      * @return void
      *
      * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
@@ -225,7 +221,7 @@ trait Likeable
     /**
      * Remove a like from this record for the given user.
      *
-     * @param int|null $userId If null will use currently logged in user.
+     * @param  int|null  $userId  If null will use currently logged in user.
      * @return void
      *
      * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
@@ -238,7 +234,7 @@ trait Likeable
     /**
      * Toggle like for model by the given user.
      *
-     * @param mixed $userId If null will use currently logged in user.
+     * @param  mixed  $userId  If null will use currently logged in user.
      * @return void
      *
      * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
@@ -251,7 +247,7 @@ trait Likeable
     /**
      * Has the user already liked likeable model.
      *
-     * @param int|null $userId
+     * @param  int|null  $userId
      * @return bool
      */
     public function liked($userId = null)
@@ -272,7 +268,7 @@ trait Likeable
     /**
      * Add a dislike for model by the given user.
      *
-     * @param mixed $userId If null will use currently logged in user.
+     * @param  mixed  $userId  If null will use currently logged in user.
      * @return void
      *
      * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
@@ -285,7 +281,7 @@ trait Likeable
     /**
      * Remove a dislike from this record for the given user.
      *
-     * @param int|null $userId If null will use currently logged in user.
+     * @param  int|null  $userId  If null will use currently logged in user.
      * @return void
      *
      * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
@@ -298,7 +294,7 @@ trait Likeable
     /**
      * Toggle dislike for model by the given user.
      *
-     * @param mixed $userId If null will use currently logged in user.
+     * @param  mixed  $userId  If null will use currently logged in user.
      * @return void
      *
      * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
@@ -311,7 +307,7 @@ trait Likeable
     /**
      * Has the user already disliked likeable model.
      *
-     * @param int|null $userId
+     * @param  int|null  $userId
      * @return bool
      */
     public function disliked($userId = null)

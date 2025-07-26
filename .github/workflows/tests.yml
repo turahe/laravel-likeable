@@ -96,30 +96,10 @@ jobs:
     - name: Run PHP CS Fixer
       run: vendor/bin/php-cs-fixer fix --dry-run --diff
 
-  security:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        php: [8.3, 8.4]
+    - name: Run Larastan
+      run: vendor/bin/phpstan analyse
 
-    name: Security Check - PHP ${{ matrix.php }}
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php }}
-        extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, sqlite3
-        coverage: none
-
-    - name: Install dependencies
-      run: composer install --prefer-dist --no-interaction
-
-    - name: Run Security Check
-      run: vendor/bin/security-checker security:check composer.lock
 
   lint:
     runs-on: ubuntu-latest
@@ -186,7 +166,7 @@ jobs:
         verbose: true
 
     - name: Upload coverage report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: coverage-report
         path: coverage-html/

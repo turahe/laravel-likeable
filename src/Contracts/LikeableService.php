@@ -14,9 +14,7 @@ interface LikeableService
     /**
      * Add a like to likeable model by user.
      *
-     * @param \Turahe\Likeable\Contracts\Likeable $likeable
-     * @param LikeType $type
-     * @param string $userId
+     * @param  string  $userId
      * @return void
      *
      * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
@@ -26,9 +24,7 @@ interface LikeableService
     /**
      * Remove a like to likeable model by user.
      *
-     * @param \Turahe\Likeable\Contracts\Likeable $likeable
-     * @param LikeType $type
-     * @param int|null $userId
+     * @param  int|null  $userId
      * @return void
      *
      * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
@@ -38,9 +34,7 @@ interface LikeableService
     /**
      * Toggle like for model by the given user.
      *
-     * @param \Turahe\Likeable\Contracts\Likeable $likeable
-     * @param LikeType $type
-     * @param string $userId
+     * @param  string  $userId
      * @return void
      *
      * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
@@ -50,9 +44,7 @@ interface LikeableService
     /**
      * Has the user already liked likeable model.
      *
-     * @param \Turahe\Likeable\Contracts\Likeable $likeable
-     * @param LikeType $type
-     * @param int|null $userId
+     * @param  int|null  $userId
      * @return bool
      */
     public function isLiked(LikeableContract $likeable, LikeType $type, $userId);
@@ -60,7 +52,6 @@ interface LikeableService
     /**
      * Decrement the total like count stored in the counter.
      *
-     * @param \Turahe\Likeable\Contracts\Likeable $likeable
      * @return void
      */
     public function decrementLikesCount(LikeableContract $likeable);
@@ -68,7 +59,6 @@ interface LikeableService
     /**
      * Increment the total like count stored in the counter.
      *
-     * @param \Turahe\Likeable\Contracts\Likeable $likeable
      * @return void
      */
     public function incrementLikesCount(LikeableContract $likeable);
@@ -76,7 +66,6 @@ interface LikeableService
     /**
      * Decrement the total dislike count stored in the counter.
      *
-     * @param \Turahe\Likeable\Contracts\Likeable $likeable
      * @return void
      */
     public function decrementDislikesCount(LikeableContract $likeable);
@@ -84,7 +73,6 @@ interface LikeableService
     /**
      * Increment the total dislike count stored in the counter.
      *
-     * @param \Turahe\Likeable\Contracts\Likeable $likeable
      * @return void
      */
     public function incrementDislikesCount(LikeableContract $likeable);
@@ -92,8 +80,8 @@ interface LikeableService
     /**
      * Remove like counters by likeable type.
      *
-     * @param string $likeableType
-     * @param string|null $type
+     * @param  string  $likeableType
+     * @param  string|null  $type
      * @return void
      */
     public function removeLikeCountersOfType($likeableType, $type = null);
@@ -101,8 +89,6 @@ interface LikeableService
     /**
      * Remove all likes from likeable model.
      *
-     * @param \Turahe\Likeable\Contracts\Likeable $likeable
-     * @param LikeType $type
      * @return void
      */
     public function removeModelLikes(LikeableContract $likeable, LikeType $type);
@@ -110,7 +96,6 @@ interface LikeableService
     /**
      * Get collection of users who liked entity.
      *
-     * @param \Turahe\Likeable\Contracts\Likeable $likeable
      * @return \Illuminate\Support\Collection
      */
     public function collectLikersOf(LikeableContract $likeable);
@@ -118,7 +103,6 @@ interface LikeableService
     /**
      * Get collection of users who disliked entity.
      *
-     * @param \Turahe\Likeable\Contracts\Likeable $likeable
      * @return \Illuminate\Support\Collection
      */
     public function collectDislikersOf(LikeableContract $likeable);
@@ -126,9 +110,7 @@ interface LikeableService
     /**
      * Fetch records that are liked by a given user id.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param LikeType $type
-     * @param int|null $userId
+     * @param  int|null  $userId
      * @return \Illuminate\Database\Eloquent\Builder
      *
      * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
@@ -138,9 +120,7 @@ interface LikeableService
     /**
      * Fetch records sorted by likes count.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param LikeType $likeType
-     * @param string $direction
+     * @param  string  $direction
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeOrderByLikesCount(Builder $query, LikeType $likeType, $direction = 'desc');
@@ -148,8 +128,8 @@ interface LikeableService
     /**
      * Fetch likes counters data.
      *
-     * @param string $likeableType
-     * @param string $likeType
+     * @param  string  $likeableType
+     * @param  string  $likeType
      * @return array
      */
     public function fetchLikesCounters($likeableType, $likeType);

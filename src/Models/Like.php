@@ -3,9 +3,9 @@
 namespace Turahe\Likeable\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Turahe\Likeable\Contracts\Like as LikeContract;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class Like.
@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User $author
  * @property-read Model|\Eloquent $likeable
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Like newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Like newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Like query()
@@ -29,6 +30,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|Like whereTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Like whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Like whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class Like extends Model implements LikeContract
@@ -37,6 +39,7 @@ class Like extends Model implements LikeContract
      * @var string
      */
     protected $table = 'likes';
+
     /**
      * @var string[]
      */

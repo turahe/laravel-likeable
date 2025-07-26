@@ -2,15 +2,15 @@
 
 namespace Turahe\Likeable;
 
-use Turahe\Likeable\Models\Like;
 use Illuminate\Support\ServiceProvider;
+use Turahe\Likeable\Console\LikeableRecountCommand;
+use Turahe\Likeable\Contracts\Like as LikeContract;
+use Turahe\Likeable\Contracts\LikeableService as LikeableServiceContract;
+use Turahe\Likeable\Contracts\LikeCounter as LikeCounterContract;
+use Turahe\Likeable\Models\Like;
 use Turahe\Likeable\Models\LikeCounter;
 use Turahe\Likeable\Observers\LikeObserver;
 use Turahe\Likeable\Services\LikeableService;
-use Turahe\Likeable\Console\LikeableRecountCommand;
-use Turahe\Likeable\Contracts\Like as LikeContract;
-use Turahe\Likeable\Contracts\LikeCounter as LikeCounterContract;
-use Turahe\Likeable\Contracts\LikeableService as LikeableServiceContract;
 
 class LikeableServiceProvider extends ServiceProvider
 {
@@ -18,6 +18,7 @@ class LikeableServiceProvider extends ServiceProvider
      * Bootstrap the application events.
      *
      * @return void
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function boot()
@@ -41,6 +42,7 @@ class LikeableServiceProvider extends ServiceProvider
      * Register Likeable's models observers.
      *
      * @return void
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     protected function registerObservers()

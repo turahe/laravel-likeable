@@ -2,14 +2,14 @@
 
 namespace Turahe\Tests\Likeable;
 
-use Turahe\Likeable\Models\Like;
-use Illuminate\Support\Facades\Schema;
-use Turahe\Tests\Likeable\Models\Stub;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Schema;
+use Turahe\Likeable\Models\Like;
+use Turahe\Tests\Likeable\Models\Stub;
 
 class ToggleTest extends BaseTestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -33,9 +33,7 @@ class ToggleTest extends BaseTestCase
         });
     }
 
-
-
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         Schema::drop('books');
         Schema::drop('users');
@@ -47,7 +45,7 @@ class ToggleTest extends BaseTestCase
     public function test_like_toggle()
     {
         /** @var Stub $stub */
-        $stub = Stub::create(['name'=>123]);
+        $stub = Stub::create(['name' => 123]);
 
         // First toggle should add like
         $stub->likeToggle(1);
@@ -66,7 +64,7 @@ class ToggleTest extends BaseTestCase
     public function test_dislike_toggle()
     {
         /** @var Stub $stub */
-        $stub = Stub::create(['name'=>123]);
+        $stub = Stub::create(['name' => 123]);
 
         // First toggle should add dislike
         $stub->dislikeToggle(1);
@@ -85,7 +83,7 @@ class ToggleTest extends BaseTestCase
     public function test_toggle_switches_between_like_and_dislike()
     {
         /** @var Stub $stub */
-        $stub = Stub::create(['name'=>123]);
+        $stub = Stub::create(['name' => 123]);
 
         // Start with like
         $stub->like(1);
@@ -117,7 +115,7 @@ class ToggleTest extends BaseTestCase
     public function test_multiple_users_toggle()
     {
         /** @var Stub $stub */
-        $stub = Stub::create(['name'=>123]);
+        $stub = Stub::create(['name' => 123]);
 
         // User 1 toggles like
         $stub->likeToggle(1);
@@ -139,4 +137,4 @@ class ToggleTest extends BaseTestCase
         $this->assertFalse($stub->liked(1));
         $this->assertTrue($stub->liked(2));
     }
-} 
+}

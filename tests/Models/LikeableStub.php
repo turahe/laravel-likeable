@@ -2,9 +2,9 @@
 
 namespace Turahe\Tests\Likeable\Models;
 
-use Turahe\Likeable\Traits\Likeable;
 use Illuminate\Database\Eloquent\Model;
 use Turahe\Likeable\Contracts\Likeable as LikeableContract;
+use Turahe\Likeable\Traits\Likeable;
 
 /**
  * Turahe\Tests\Likeable\Models\LikeableStub
@@ -20,6 +20,7 @@ use Turahe\Likeable\Contracts\Likeable as LikeableContract;
  * @property-read \Illuminate\Database\Eloquent\Collection|\Turahe\Likeable\Models\Like[] $likesAndDislikes
  * @property-read int|null $likes_and_dislikes_count
  * @property-read \Turahe\Likeable\Models\LikeCounter|null $likesCounter
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|LikeableStub newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|LikeableStub newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|LikeableStub orderByDislikesCount($direction = 'desc')
@@ -27,6 +28,7 @@ use Turahe\Likeable\Contracts\Likeable as LikeableContract;
  * @method static \Illuminate\Database\Eloquent\Builder|LikeableStub query()
  * @method static \Illuminate\Database\Eloquent\Builder|LikeableStub whereDislikedBy($userId = null)
  * @method static \Illuminate\Database\Eloquent\Builder|LikeableStub whereLikedBy($userId = null)
+ *
  * @mixin \Eloquent
  */
 class LikeableStub extends Model implements LikeableContract
