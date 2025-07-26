@@ -11,7 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ### Added
 - Comprehensive test coverage (79 tests, 0 failures, 0 risky tests)
 - Full support for Laravel 10, 11, and 12
-- GitHub Actions CI for PHP 8.3/8.4 and Laravel 10/11/12
+- GitHub Actions CI for PHP 8.1/8.2/8.3/8.4 and Laravel 10/11/12
 - Code coverage reporting via Codecov with Xdebug enabled
 - Code style checks with PHP CS Fixer
 - Static analysis with Larastan across all PHP/Laravel combinations

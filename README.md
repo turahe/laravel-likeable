@@ -447,9 +447,9 @@ This will generate HTML coverage reports in the `coverage-html` directory.
 This package uses GitHub Actions for continuous integration. The CI pipeline includes:
 
 ### Test Matrix
-- **PHP Versions**: 8.3, 8.4
+- **PHP Versions**: 8.1, 8.2, 8.3, 8.4
 - **Laravel Versions**: 10.x, 11.x, 12.x
-- **Test Coverage**: Generated for PHP 8.4 + Laravel 12.x
+- **Test Coverage**: Generated for PHP 8.1+ + Laravel 10/11/12.x
 
 ### CI Jobs
 1. **Tests**: Runs the full test suite across all PHP/Laravel combinations with code coverage
