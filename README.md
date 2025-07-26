@@ -452,10 +452,10 @@ This package uses GitHub Actions for continuous integration. The CI pipeline inc
 - **Test Coverage**: Generated for PHP 8.4 + Laravel 12.x
 
 ### CI Jobs
-1. **Tests**: Runs the full test suite across all PHP/Laravel combinations
+1. **Tests**: Runs the full test suite across all PHP/Laravel combinations with code coverage
 2. **Static Analysis**: Code style checking with PHP CS Fixer and Larastan across all PHP/Laravel combinations
 3. **Lint**: PHP syntax validation
-4. **Coverage**: Code coverage reporting
+4. **Coverage**: Detailed code coverage reporting with HTML reports
 
 ### Local Development
 You can run the same checks locally:
