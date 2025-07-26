@@ -453,7 +453,7 @@ This package uses GitHub Actions for continuous integration. The CI pipeline inc
 
 ### CI Jobs
 1. **Tests**: Runs the full test suite across all PHP/Laravel combinations
-2. **Static Analysis**: Code style checking with PHP CS Fixer and Larastan
+2. **Static Analysis**: Code style checking with PHP CS Fixer and Larastan across all PHP/Laravel combinations
 3. **Lint**: PHP syntax validation
 4. **Coverage**: Code coverage reporting
 
