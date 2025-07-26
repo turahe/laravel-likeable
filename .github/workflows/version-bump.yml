@@ -1,0 +1,140 @@
+name: Version Bump
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'CHANGELOG.md'
+      - 'README.md'
+      - '.github/workflows/release.yml'
+
+jobs:
+  version-bump:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, dom, filter, gd, iconv, json, mbstring, pdo
+          coverage: none
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run tests
+        run: composer test
+
+      - name: Run static analysis
+        run: composer analyse
+
+      - name: Run linting
+        run: composer lint
+
+      - name: Configure Git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+      - name: Check for conventional commits
+        id: conventional
+        run: |
+          # Check if the last commit follows conventional commit format
+          LAST_COMMIT=$(git log -1 --pretty=format:"%s")
+          if [[ $LAST_COMMIT =~ ^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\(.+\))?: ]]; then
+            echo "has_conventional=true" >> $GITHUB_OUTPUT
+            echo "commit_type=$(echo $LAST_COMMIT | sed -E 's/^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\(.+\))?:.*/\1/')" >> $GITHUB_OUTPUT
+          else
+            echo "has_conventional=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Update CHANGELOG
+        if: steps.conventional.outputs.has_conventional == 'true'
+        run: |
+          # Get the last commit message
+          LAST_COMMIT=$(git log -1 --pretty=format:"%s")
+          COMMIT_TYPE=$(echo $LAST_COMMIT | sed -E 's/^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\(.+\))?:.*/\1/')
+          
+          # Add entry to CHANGELOG.md
+          TODAY=$(date +%Y-%m-%d)
+          
+          # Create a temporary file with the new entry
+          cat > temp_changelog_entry.md << EOF
+          ## [Unreleased] - $TODAY
+          
+          ### $COMMIT_TYPE
+          - $LAST_COMMIT
+          
+          EOF
+          
+          # Insert the new entry after the first line in CHANGELOG.md
+          if [ -f "CHANGELOG.md" ]; then
+            # If CHANGELOG.md exists, prepend the new entry
+            cat temp_changelog_entry.md CHANGELOG.md > temp_changelog.md
+            mv temp_changelog.md CHANGELOG.md
+          else
+            # If CHANGELOG.md doesn't exist, create it
+            cat temp_changelog_entry.md > CHANGELOG.md
+          fi
+          
+          rm temp_changelog_entry.md
+
+      - name: Commit and push changes
+        if: steps.conventional.outputs.has_conventional == 'true'
+        run: |
+          git add CHANGELOG.md
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "docs: update changelog for ${{ steps.conventional.outputs.commit_type }}"
+            git push
+          fi
+
+      - name: Create Release PR
+        if: steps.conventional.outputs.has_conventional == 'true' && steps.conventional.outputs.commit_type == 'feat'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: prepare release"
+          title: "🚀 Prepare Release"
+          body: |
+            ## Release Preparation
+            
+            This PR prepares for a new release based on the latest features.
+            
+            ### Changes
+            - Updated CHANGELOG.md with latest changes
+            - Ready for version bump and release
+            
+            ### Next Steps
+            1. Review the changes
+            2. Merge this PR
+            3. Create a new tag to trigger the release workflow
+            
+            ### Creating a Release
+            ```bash
+            git tag v1.2.3
+            git push origin v1.2.3
+            ```
+          branch: release-prep
+          delete-branch: true
+          base: main 

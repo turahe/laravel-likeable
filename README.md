@@ -4,7 +4,14 @@
 [![Total Downloads](https://poser.pugx.org/turahe/laravel-likeable/downloads)](//packagist.org/packages/turahe/laravel-likeable)
 [![License](https://poser.pugx.org/turahe/laravel-likeable/license)](//packagist.org/packages/turahe/laravel-likeable)
 [![Tests](https://github.com/turahe/laravel-likeable/actions/workflows/tests.yml/badge.svg)](https://github.com/turahe/laravel-likeable/actions/workflows/tests.yml)
+[![Release](https://github.com/turahe/laravel-likeable/actions/workflows/release.yml/badge.svg)](https://github.com/turahe/laravel-likeable/actions/workflows/release.yml)
+[![Version Bump](https://github.com/turahe/laravel-likeable/actions/workflows/version-bump.yml/badge.svg)](https://github.com/turahe/laravel-likeable/actions/workflows/version-bump.yml)
 [![Code Coverage](https://codecov.io/gh/turahe/laravel-likeable/branch/main/graph/badge.svg)](https://codecov.io/gh/turahe/laravel-likeable)
+[![PHP Version](https://img.shields.io/badge/php-8.3%2B-blue.svg)](https://php.net)
+[![Laravel Version](https://img.shields.io/badge/laravel-11%2B%20%7C%2012%2B-red.svg)](https://laravel.com)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
+[![Semantic Versioning](https://img.shields.io/badge/semver-2.0.0-green.svg)](https://semver.org)
+[![Tests](https://img.shields.io/badge/tests-79%20passing-brightgreen.svg)](https://github.com/turahe/laravel-likeable/actions/workflows/tests.yml)
 
 Laravel Likeable simplifies management of Eloquent model's likes & dislikes. Make any model `likeable` & `dislikeable` in a minute!
 
@@ -23,6 +30,7 @@ Laravel Likeable simplifies management of Eloquent model's likes & dislikes. Mak
 - [Contributing](#contributing)
 - [Testing](#testing)
 - [Continuous Integration](#continuous-integration)
+- [Release Process](#release-process)
 - [Security](#security)
 - [Contributors](#contributors)
 - [Alternatives](#alternatives)
@@ -49,6 +57,8 @@ Laravel Likeable simplifies management of Eloquent model's likes & dislikes. Mak
 - ✅ **Continuous Integration with GitHub Actions**
 - ✅ **Code style checks with PHP CS Fixer**
 - ✅ **Static analysis with Larastan**
+- ✅ **Automated release workflows with conventional commits**
+- ✅ **Semantic versioning and changelog generation**
 
 
 ## Installation
@@ -473,6 +483,57 @@ $ composer analyse       # Run static analysis
 
 ### Code Coverage
 Code coverage reports are generated and uploaded to [Codecov](https://codecov.io/gh/turahe/laravel-likeable).
+
+## Release Process
+
+This package uses automated release workflows for version management and deployment.
+
+### Automated Release Workflows
+
+#### Version Bump Workflow
+- **Trigger**: Pushes to `main` branch with conventional commits
+- **Actions**:
+  - Runs tests, static analysis, and linting
+  - Updates `CHANGELOG.md` with new entries
+  - Creates release preparation PRs for new features
+  - Follows [Conventional Commits](https://www.conventionalcommits.org/) format
+
+#### Release Workflow
+- **Trigger**: Pushing tags with `v*` pattern (e.g., `v1.2.3`)
+- **Actions**:
+  - Validates code quality (tests, analysis, linting)
+  - Generates changelog from git history
+  - Creates GitHub release with assets
+  - Uploads `composer.json`, `CHANGELOG.md`, and `README.md` as release assets
+
+### Creating a Release
+
+1. **Prepare Changes**: Ensure all changes follow conventional commit format
+2. **Create Tag**: Create and push a new version tag
+   ```bash
+   git tag v1.2.3
+   git push origin v1.2.3
+   ```
+3. **Automated Process**: The release workflow will automatically:
+   - Run all quality checks
+   - Generate release notes
+   - Create GitHub release
+   - Upload release assets
+
+### Conventional Commits
+
+This project follows the [Conventional Commits](https://www.conventionalcommits.org/) specification:
+
+- `feat:` - New features (triggers release preparation)
+- `fix:` - Bug fixes
+- `docs:` - Documentation changes
+- `style:` - Code style changes
+- `refactor:` - Code refactoring
+- `perf:` - Performance improvements
+- `test:` - Test additions or changes
+- `build:` - Build system changes
+- `ci:` - CI/CD changes
+- `chore:` - Maintenance tasks
 
 ## Security
 

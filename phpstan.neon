@@ -1,0 +1,44 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - vendor/nesbot/carbon/extension.neon
+
+parameters:
+
+    paths:
+        - src/
+
+    # Level 10 is the highest level
+    level: 5
+    
+    reportUnmatchedIgnoredErrors: false
+    
+    # Ignore some Laravel-specific issues
+    ignoreErrors:
+        - '#Call to an undefined method Turahe\\Likeable\\Contracts\\Like::#'
+        - '#Call to an undefined method Turahe\\Likeable\\Contracts\\LikeCounter::#'
+        - '#Call to an undefined method Turahe\\Likeable\\Contracts\\Likeable::#'
+        - '#Access to an undefined property Turahe\\Likeable\\Contracts\\Like::#'
+        - '#Access to an undefined property Turahe\\Likeable\\Contracts\\Likeable::#'
+        - '#Call to an undefined static method Illuminate\\Contracts\\Auth\\Authenticatable::#'
+        - '#Call to an undefined method Illuminate\\Database\\Eloquent\\Model::#'
+        - '#PHPDoc type array<string> of property Turahe\\Likeable\\Models\\Like::\$fillable is not covariant#'
+        - '#PHPDoc type array of property Turahe\\Likeable\\Models\\LikeCounter::\$casts is not covariant#'
+        - '#PHPDoc tag @property-read for property Turahe\\Likeable\\Models\\Like::\$author contains unknown class#'
+        - '#Trait Turahe\\Likeable\\Traits\\Likeable is used zero times#'
+        - '#Strict comparison using === between int and null will always evaluate to false#'
+        - '#Call to function is_null\(\) with string will always evaluate to false#'
+        - '#Call to function is_null\(\) with int will always evaluate to false#'
+        - '#Method Turahe\\Likeable\\Services\\LikeableService::getLikeTypeId\(\) should return int but returns string#'
+        - '#Parameter.*\$userId.*expects int, string given#'
+        - '#Parameter.*\$userId.*expects string, int given#'
+        - '#Parameter.*\$typeId.*expects string, int given#'
+        - '#Access to an undefined property Illuminate\\Database\\Eloquent\\Model::\$type_id#'
+        - '#Access to an undefined property Illuminate\\Database\\Eloquent\\Model::\$user_id#'
+        - '#Access to an undefined property Illuminate\\Database\\Eloquent\\Model::\$count#'
+        - '#Strict comparison using === between int\|string and null will always evaluate to false#'
+
+#    ignoreErrors:
+#        - '#PHPDoc tag @var#'
+#
+#    excludePaths:
+#        - ./*/*/FileToBeExcluded.php
