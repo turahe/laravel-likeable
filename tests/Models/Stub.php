@@ -10,4 +10,6 @@ class Stub extends Model implements \Turahe\Likeable\Contracts\Likeable
     use Likeable;
 
     public $table = 'books';
+    
+    protected $fillable = ['name'];
 }

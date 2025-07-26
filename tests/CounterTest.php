@@ -2,23 +2,51 @@
 
 namespace Turahe\Tests\Likeable;
 
-use Mockery as m;
+use Turahe\Tests\Likeable\Models\Stub;
+use Illuminate\Support\Facades\Schema;
 
 class CounterTest extends BaseTestCase
 {
-    public function testLike()
+    protected function getEnvironmentSetUp($app)
     {
-        $likeable = m::mock('Turahe\Tests\Likeable\Models\LikeableStub[incrementLikeCount]');
-        $likeable->shouldReceive('incrementLikeCount')->andReturn(null);
+        parent::getEnvironmentSetUp($app);
 
-        $likeable->like(0);
+        Schema::create('books', function ($table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->timestamps();
+        });
     }
 
+    public function tearDown(): void
+    {
+        Schema::drop('books');
+    }
+
+    /**
+     * @runInSeparateProcess
+     */
+    public function testLike()
+    {
+        $likeable = Stub::create(['name' => 'test']);
+        
+        $likeable->like(1);
+        
+        $this->assertEquals(1, $likeable->likes_count);
+    }
+
+    /**
+     * @runInSeparateProcess
+     */
     public function testUnlike()
     {
-        $likeable = m::mock('Turahe\Tests\Likeable\Models\LikeableStub[decrementLikeCount]');
-        $likeable->shouldReceive('decrementLikeCount')->andReturn(null);
-
-        $likeable->unlike(0);
+        $likeable = Stub::create(['name' => 'test']);
+        
+        $likeable->like(1);
+        $this->assertEquals(1, $likeable->likes_count);
+        
+        $likeable->unlike(1);
+        
+        $this->assertEquals(0, $likeable->likes_count);
     }
 }

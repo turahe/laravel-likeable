@@ -100,7 +100,12 @@ trait Likeable
      */
     public function getLikesCountAttribute()
     {
-        return $this->likesCounter ? $this->likesCounter->count : 0;
+        if ($this->likesCounter) {
+            return $this->likesCounter->count;
+        }
+        
+        // Fallback to counting actual likes if counter doesn't exist
+        return $this->likes()->count();
     }
 
     /**
@@ -110,7 +115,12 @@ trait Likeable
      */
     public function getDislikesCountAttribute()
     {
-        return $this->dislikesCounter ? $this->dislikesCounter->count : 0;
+        if ($this->dislikesCounter) {
+            return $this->dislikesCounter->count;
+        }
+        
+        // Fallback to counting actual dislikes if counter doesn't exist
+        return $this->dislikes()->count();
     }
 
     /**

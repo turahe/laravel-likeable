@@ -54,4 +54,39 @@ class LikeCounter extends Model implements LikeCounterContract
     {
         return $this->morphTo();
     }
+
+    /**
+     * Rebuild the like counters for a given model class.
+     *
+     * @param string $modelClass
+     * @return void
+     */
+    public static function rebuild($modelClass)
+    {
+        if (class_exists($modelClass)) {
+            $model = new $modelClass;
+            $likeableType = $model->getMorphClass();
+        } else {
+            $likeableType = $modelClass;
+        }
+
+        // Delete existing counters for this type
+        self::where('likeable_type', $likeableType)->delete();
+
+        // Get counts from likes table and create new counters
+        $counts = \DB::table('likes')
+            ->select('likeable_id', 'likeable_type', 'type_id', \DB::raw('COUNT(*) as count'))
+            ->where('likeable_type', $likeableType)
+            ->groupBy('likeable_id', 'likeable_type', 'type_id')
+            ->get();
+
+        foreach ($counts as $count) {
+            self::create([
+                'likeable_id' => $count->likeable_id,
+                'likeable_type' => $count->likeable_type,
+                'type_id' => $count->type_id,
+                'count' => $count->count,
+            ]);
+        }
+    }
 }

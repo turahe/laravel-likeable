@@ -33,7 +33,10 @@
 		"laravel/pint": "^1.18",
 		"mockery/mockery": "^1.6",
 		"orchestra/testbench": "^8.0 || ^9.0 || ^10.0",
-		"phpunit/phpunit": "^10.0 || ^11.0"
+		"phpunit/phpunit": "^10.0 || ^11.0",
+
+		"friendsofphp/php-cs-fixer": "^3.0",
+		"enlightn/security-checker": "^1.0"
 	},
 	"minimum-stability": "stable",
 	"prefer-stable": true,
@@ -60,6 +63,14 @@
 	},
 	"scripts": {
 		"format": "./vendor/bin/pint",
-		"test": "./vendor/bin/phpunit --testdox"
+		"test": "./vendor/bin/phpunit --testdox",
+		"test:coverage": "./vendor/bin/phpunit --coverage-html=coverage-html --coverage-clover=coverage.xml",
+
+		"lint": "./vendor/bin/php-cs-fixer fix --dry-run --diff",
+		"security": "./vendor/bin/security-checker security:check composer.lock",
+		"check": [
+			"@lint",
+			"@test"
+		]
 	}
 }

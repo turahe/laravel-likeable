@@ -77,7 +77,17 @@ class LikeableService implements LikeableServiceContract
             return;
         }
 
+        // Store the type before deleting the like
+        $likeType = $like->type_id;
+
         $like->delete();
+
+        // Explicitly update the counter since the observer might not be triggered
+        if ($likeType == LikeType::LIKE->value) {
+            $this->decrementLikesCount($likeable);
+        } else {
+            $this->decrementDislikesCount($likeable);
+        }
     }
 
     /**
@@ -123,7 +133,7 @@ class LikeableService implements LikeableServiceContract
             $userId = $this->loggedInUserId();
         }
 
-        if (! $userId) {
+        if ($userId === null) {
             return false;
         }
 
@@ -155,6 +165,9 @@ class LikeableService implements LikeableServiceContract
         }
 
         $counter->decrement('count');
+        
+        // Refresh the relationship to reflect the updated count
+        $likeable->load('likesCounter');
     }
 
     /**
@@ -192,6 +205,9 @@ class LikeableService implements LikeableServiceContract
         }
 
         $counter->decrement('count');
+
+        // Refresh the relationship to reflect the updated count
+        $likeable->load('dislikesCounter');
     }
 
     /**
@@ -326,14 +342,14 @@ class LikeableService implements LikeableServiceContract
         $likeable = $query->getModel();
 
         return $query
-            ->select($likeable->getTable().'.*', 'like_counter.count')
-            ->leftJoin('like_counter', function (JoinClause $join) use ($likeable, $likeType) {
+            ->select($likeable->getTable().'.*', 'like_counters.count')
+            ->leftJoin('like_counters', function (JoinClause $join) use ($likeable, $likeType) {
                 $join
-                    ->on('like_counter.likeable_id', '=', "{$likeable->getTable()}.{$likeable->getKeyName()}")
-                    ->where('like_counter.likeable_type', '=', $likeable->getMorphClass())
-                    ->where('like_counter.type_id', '=', $this->getLikeTypeId($likeType));
+                    ->on('like_counters.likeable_id', '=', "{$likeable->getTable()}.{$likeable->getKeyName()}")
+                    ->where('like_counters.likeable_type', '=', $likeable->getMorphClass())
+                    ->where('like_counters.type_id', '=', $this->getLikeTypeId($likeType));
             })
-            ->orderBy('like_counter.count', $direction);
+            ->orderBy('like_counters.count', $direction);
     }
 
     /**
@@ -380,7 +396,7 @@ class LikeableService implements LikeableServiceContract
             $userId = $this->loggedInUserId();
         }
 
-        if (! $userId) {
+        if ($userId === null) {
             throw new LikerNotDefinedException();
         }
 
@@ -398,22 +414,25 @@ class LikeableService implements LikeableServiceContract
     }
 
     /**
-     * Get like type id from name.
+     * Get like type id from name or LikeType enum.
      *
      * @todo move to Enum class
-     * @param string $type
+     * @param string|LikeType $type
      * @return int
      *
      * @throws \Turahe\Likeable\Exceptions\LikeTypeInvalidException
      */
     protected function getLikeTypeId($type)
     {
-        $type = strtoupper($type);
-        if (! defined("\\Turahe\\Likeable\\Enums\\LikeType::{$type}")) {
-            throw new LikeTypeInvalidException("Like type `{$type}` not exist");
+        if ($type instanceof LikeType) {
+            $typeName = $type->name;
+        } else {
+            $typeName = strtoupper($type);
         }
-
-        return constant("\\Turahe\\Likeable\\Enums\\LikeType::{$type}");
+        if (!defined("\\Turahe\\Likeable\\Enums\\LikeType::{$typeName}")) {
+            throw new LikeTypeInvalidException("Like type `{$typeName}` not exist");
+        }
+        return constant("\\Turahe\\Likeable\\Enums\\LikeType::{$typeName}");
     }
 
     /**
@@ -454,28 +473,33 @@ class LikeableService implements LikeableServiceContract
     /**
      * Resolve list of likeable relations by like type.
      *
-     * @param string $type
+     * @param string|LikeType $type
      * @return array
      *
      * @throws \Turahe\Likeable\Exceptions\LikeTypeInvalidException
      */
     private function likeTypeRelations($type)
     {
+        if ($type instanceof LikeType) {
+            $typeKey = $type->value;
+        } elseif (defined("\\Turahe\\Likeable\\Enums\\LikeType::" . strtoupper($type))) {
+            $typeKey = constant("\\Turahe\\Likeable\\Enums\\LikeType::" . strtoupper($type))->value;
+        } else {
+            throw new LikeTypeInvalidException("Like type `{$type}` not supported");
+        }
         $relations = [
-            LikeType::LIKE => [
+            'like' => [
                 'likes',
                 'likesAndDislikes',
             ],
-            LikeType::DISLIKE => [
+            'dislike' => [
                 'dislikes',
                 'likesAndDislikes',
             ],
         ];
-
-        if (! isset($relations[$type])) {
+        if (!isset($relations[$typeKey])) {
             throw new LikeTypeInvalidException("Like type `{$type}` not supported");
         }
-
-        return $relations[$type];
+        return $relations[$typeKey];
     }
 }

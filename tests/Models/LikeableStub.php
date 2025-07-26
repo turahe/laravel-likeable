@@ -4,6 +4,7 @@ namespace Turahe\Tests\Likeable\Models;
 
 use Turahe\Likeable\Traits\Likeable;
 use Illuminate\Database\Eloquent\Model;
+use Turahe\Likeable\Contracts\Likeable as LikeableContract;
 
 /**
  * Turahe\Tests\Likeable\Models\LikeableStub
@@ -28,7 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|LikeableStub whereLikedBy($userId = null)
  * @mixin \Eloquent
  */
-class LikeableStub extends Model
+class LikeableStub extends Model implements LikeableContract
 {
     use Likeable;
 

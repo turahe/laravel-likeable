@@ -3,11 +3,8 @@
 [![Latest Stable Version](https://poser.pugx.org/turahe/laravel-likeable/v)](//packagist.org/packages/turahe/laravel-likeable)
 [![Total Downloads](https://poser.pugx.org/turahe/laravel-likeable/downloads)](//packagist.org/packages/turahe/laravel-likeable)
 [![License](https://poser.pugx.org/turahe/laravel-likeable/license)](//packagist.org/packages/turahe/laravel-likeable)
-[![PHP Composer](https://github.com/turahe/laravel-likeable/actions/workflows/php.yml/badge.svg)](https://github.com/turahe/laravel-likeable/actions/workflows/php.yml)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/turahe/laravel-likeable/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/turahe/laravel-likeable/?branch=master)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fturahe%2Flaravel-likeable.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fturahe%2Flaravel-likeable?ref=badge_shield)
-[![StyleCI](https://github.styleci.io/repos/298268837/shield?branch=master)](https://github.styleci.io/repos/298268837?branch=master)
-![PHP Composer](https://github.com/turahe/laravel-likeable/workflows/PHP%20Composer/badge.svg)
+[![Tests](https://github.com/turahe/laravel-likeable/actions/workflows/tests.yml/badge.svg)](https://github.com/turahe/laravel-likeable/actions/workflows/tests.yml)
+[![Code Coverage](https://codecov.io/gh/turahe/laravel-likeable/branch/main/graph/badge.svg)](https://codecov.io/gh/turahe/laravel-likeable)
 
 Laravel Likeable simplify management of Eloquent model's likes & dislikes. Make any model `likeable` & `dislikeable` in a minute!
 
@@ -25,6 +22,7 @@ Laravel Likeable simplify management of Eloquent model's likes & dislikes. Make 
 - [Change log](#change-log)
 - [Contributing](#contributing)
 - [Testing](#testing)
+- [Continuous Integration](#continuous-integration)
 - [Security](#security)
 - [Contributors](#contributors)
 - [Alternatives](#alternatives)
@@ -408,3 +406,42 @@ You can run the tests with:
 ```sh
 $ vendor/bin/phpunit
 ```
+
+Or use the composer script:
+
+```sh
+$ composer test
+```
+
+## Continuous Integration
+
+This package uses GitHub Actions for continuous integration. The CI pipeline includes:
+
+### Test Matrix
+- **PHP Versions**: 8.3, 8.4
+- **Laravel Versions**: 10.x, 11.x, 12.x
+- **Test Coverage**: Generated for PHP 8.4 + Laravel 12.x
+
+### CI Jobs
+1. **Tests**: Runs the full test suite across all PHP/Laravel combinations
+2. **Static Analysis**: Code style checking with PHP CS Fixer
+3. **Security**: Security vulnerability scanning
+4. **Lint**: PHP syntax validation
+5. **Coverage**: Code coverage reporting
+
+### Local Development
+You can run the same checks locally:
+
+```sh
+# Run all checks
+$ composer check
+
+# Run specific checks
+$ composer test          # Run tests
+$ composer test:coverage # Run tests with coverage
+$ composer lint          # Check code style
+$ composer security      # Security check
+```
+
+### Code Coverage
+Code coverage reports are generated and uploaded to [Codecov](https://codecov.io/gh/turahe/laravel-likeable).

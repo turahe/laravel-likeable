@@ -1,0 +1,26 @@
+name: Generate Badges
+
+on:
+  workflow_run:
+    workflows: ["Tests"]
+    types:
+      - completed
+
+jobs:
+  generate-badges:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Generate Badges
+        uses: schneegans/dynamic-badges-action@v1.6.0
+        with:
+          auth: ${{ secrets.GIST_SECRET }}
+          gistID: your-gist-id-here
+          filename: laravel-likeable.json
+          namedLogo: github
+          label: Tests
+          message: ${{ github.event.workflow_run.conclusion }}
+          namedLogoColor: white
+          color: ${{ github.event.workflow_run.conclusion == 'success' && 'green' || 'red' }}
+          namedLogoWidth: 20
+          style: flat 
