@@ -2,16 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v1.0.0.html).
 
 ## [Unreleased]
 - Ongoing improvements and maintenance.
 
-## [2.0.0] - 2024-07-26
+## [1.0.0] - 2025-07-26
 ### Added
 - Comprehensive test coverage (79 tests, 0 failures, 0 risky tests)
-- Full support for Laravel 10, 11, and 12
-- GitHub Actions CI for PHP 8.1/8.2/8.3/8.4 and Laravel 10/11/12
+- Full support for Laravel 11 and 12
+- GitHub Actions CI for PHP 8.3/8.4 and Laravel 11/12
 - Code coverage reporting via Codecov with Xdebug enabled
 - Code style checks with PHP CS Fixer
 - Static analysis with Larastan across all PHP/Laravel combinations
@@ -31,8 +31,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Fixed console command output and test expectations
 - Fixed morph map and model alias issues in tests
 
-## [1.0.0] - 2023-xx-xx
+## [0.0.1] - 2023-xx-xx
 - Initial release with basic like/dislike functionality, events, and artisan command support.
 
-[Unreleased]: https://github.com/turahe/laravel-likeable/compare/v2.0.0...HEAD
-[2.0.0]: https://github.com/turahe/laravel-likeable/releases/tag/v2.0.0 
+[Unreleased]: https://github.com/turahe/laravel-likeable/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/turahe/laravel-likeable/releases/tag/v1.0.0 
