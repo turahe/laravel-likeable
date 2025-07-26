@@ -10,18 +10,18 @@ use Turahe\Likeable\Contracts\Likeable as LikeableContract;
 class ModelWasUndisliked
 {
     /**
-     * The un disliked model.
+     * The undisliked model.
      *
      * @var \Turahe\Likeable\Contracts\Likeable
      */
-    public $model;
+    public $likeable;
 
     /**
-     * User id who unliked model.
+     * User id who undisliked model.
      *
      * @var int
      */
-    public $likerId;
+    public $userId;
 
     /**
      * Create a new event instance.
@@ -30,9 +30,9 @@ class ModelWasUndisliked
      * @param int $likerId
      * @return void
      */
-    public function __construct(LikeableContract $likeable, $likerId)
+    public function __construct(LikeableContract $likeable, $userId)
     {
-        $this->model = $likeable;
-        $this->likerId = $likerId;
+        $this->likeable = $likeable;
+        $this->userId = $userId;
     }
 }

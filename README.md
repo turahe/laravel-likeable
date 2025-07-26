@@ -6,7 +6,7 @@
 [![Tests](https://github.com/turahe/laravel-likeable/actions/workflows/tests.yml/badge.svg)](https://github.com/turahe/laravel-likeable/actions/workflows/tests.yml)
 [![Code Coverage](https://codecov.io/gh/turahe/laravel-likeable/branch/main/graph/badge.svg)](https://codecov.io/gh/turahe/laravel-likeable)
 
-Laravel Likeable simplify management of Eloquent model's likes & dislikes. Make any model `likeable` & `dislikeable` in a minute!
+Laravel Likeable simplifies management of Eloquent model's likes & dislikes. Make any model `likeable` & `dislikeable` in a minute!
 
 ## Contents
 
@@ -27,24 +27,27 @@ Laravel Likeable simplify management of Eloquent model's likes & dislikes. Make 
 - [Contributors](#contributors)
 - [Alternatives](#alternatives)
 - [License](#license)
-- [About CyberTurahe](#about-turahe)
+- [About Turahe](#about-turahe)
 
 ## Features
 
-- Designed to work with Laravel Eloquent models.
-- Using contracts to keep high customization capabilities.
-- Using traits to get functionality out of the box.
-- Most part of the logic is handled by the `LikeableService`.
-- Has Artisan command `likeable:recount {model?} {type?}` to re-fetch likes counters.
-- Likeable model can has Likes and Dislikes.
-- Likes and Dislikes for one model are mutually exclusive.
-- Get Likeable models ordered by likes count.
-- Events for `like`, `unlike`, `dislike`, `undislike` methods.
-- Following PHP Standard Recommendations:
-  - [PSR-1 (Basic Coding Standard)](http://www.php-fig.org/psr/psr-1/).
-  - [PSR-2 (Coding Style Guide)](http://www.php-fig.org/psr/psr-2/).
-  - [PSR-4 (Autoloading Standard)](http://www.php-fig.org/psr/psr-4/).
-- Covered with unit tests.
+- ✅ **Designed to work with Laravel Eloquent models**
+- ✅ **Using contracts to keep high customization capabilities**
+- ✅ **Using traits to get functionality out of the box**
+- ✅ **Most part of the logic is handled by the `LikeableService`**
+- ✅ **Has Artisan command `likeable:recount {model?} {type?}` to re-fetch likes counters**
+- ✅ **Likeable model can have Likes and Dislikes**
+- ✅ **Likes and Dislikes for one model are mutually exclusive**
+- ✅ **Get Likeable models ordered by likes count**
+- ✅ **Events for `like`, `unlike`, `dislike`, `undislike` methods**
+- ✅ **Comprehensive test coverage (79 tests, 0 failures)**
+- ✅ **Following PHP Standard Recommendations:**
+  - [PSR-1 (Basic Coding Standard)](http://www.php-fig.org/psr/psr-1/)
+  - [PSR-2 (Coding Style Guide)](http://www.php-fig.org/psr/psr-2/)
+  - [PSR-4 (Autoloading Standard)](http://www.php-fig.org/psr/psr-4/)
+- ✅ **Fully tested with PHPUnit**
+- ✅ **Continuous Integration with GitHub Actions**
+- ✅ **Security vulnerability scanning**
 
 ## Installation
 
@@ -54,7 +57,7 @@ First, pull in the package through Composer.
 $ composer require turahe/laravel-likeable
 ```
 
-**If you are using Laravel 5.5 you can skip register package part.** 
+**If you are using Laravel 5.5+ you can skip the register package part.** 
 
 #### Register package on Laravel 5.4 and lower
 
@@ -71,7 +74,7 @@ Include the service provider within `app/config/app.php`.
 At last, you need to publish and run database migrations.
 
 ```sh
-$ php artisan vendor:publish --provider="Turahe\Likeable\Providers\LikeableServiceProvider" --tag=migrations
+$ php artisan vendor:publish --provider="Turahe\Likeable\LikeableServiceProvider" --tag=migrations
 $ php artisan migrate
 ```
 
@@ -303,55 +306,55 @@ On each dislike removed `\Turahe\Likeable\Events\ModelWasUndisliked` event is fi
 ##### Recount likes and dislikes of all model types
 
 ```sh
-$ likeable:recount
+$ php artisan likeable:recount
 ```
 
 ##### Recount likes and dislikes of concrete model type (using morph map alias)
 
 ```sh
-$ likeable:recount --model="article"
+$ php artisan likeable:recount --model="article"
 ```
 
 ##### Recount likes and dislikes of concrete model type (using fully qualified class name)
 
 ```sh
-$ likeable:recount --model="App\Models\Article"
+$ php artisan likeable:recount --model="App\Models\Article"
 ```
 
 ##### Recount only likes of all model types
 
 ```sh
-$ likeable:recount --type="like"
+$ php artisan likeable:recount --type="like"
 ```
 
 ##### Recount only likes of concrete model type (using morph map alias)
 
 ```sh
-$ likeable:recount --model="article" --type="like"
+$ php artisan likeable:recount --model="article" --type="like"
 ```
 
 ##### Recount only likes of concrete model type (using fully qualified class name)
 
 ```sh
-$ likeable:recount --model="App\Models\Article" --type="like"
+$ php artisan likeable:recount --model="App\Models\Article" --type="like"
 ```
 
 ##### Recount only dislikes of all model types
 
 ```sh
-$ likeable:recount --type="dislike"
+$ php artisan likeable:recount --type="dislike"
 ```
 
 ##### Recount only dislikes of concrete model type (using morph map alias)
 
 ```sh
-$ likeable:recount --model="article" --type="dislike"
+$ php artisan likeable:recount --model="article" --type="dislike"
 ```
 
 ##### Recount only dislikes of concrete model type (using fully qualified class name)
 
 ```sh
-$ likeable:recount --model="App\Models\Article" --type="dislike"
+$ php artisan likeable:recount --model="App\Models\Article" --type="dislike"
 ```
 
 ## Extending
@@ -401,6 +404,20 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Testing
 
+This package includes comprehensive test coverage with 79 tests covering all functionality:
+
+- **Common Use Tests** - Basic like/unlike functionality
+- **Counter Tests** - Like/dislike counter management
+- **Dislike Tests** - Dislike-specific functionality
+- **Enum Tests** - LikeType enum functionality
+- **Event Tests** - Event dispatching
+- **Exception Tests** - Custom exception handling
+- **Service Tests** - Service layer functionality
+- **Toggle Tests** - Like/dislike toggle operations
+- **Console Command Tests** - Artisan command functionality
+
+### Running Tests
+
 You can run the tests with:
 
 ```sh
@@ -412,6 +429,16 @@ Or use the composer script:
 ```sh
 $ composer test
 ```
+
+### Test Coverage
+
+Run tests with coverage:
+
+```sh
+$ composer test:coverage
+```
+
+This will generate HTML coverage reports in the `coverage-html` directory.
 
 ## Continuous Integration
 
@@ -445,3 +472,24 @@ $ composer security      # Security check
 
 ### Code Coverage
 Code coverage reports are generated and uploaded to [Codecov](https://codecov.io/gh/turahe/laravel-likeable).
+
+## Security
+
+If you discover any security related issues, please email wachid@outlook.com instead of using the issue tracker.
+
+## Contributors
+
+- [Nur Wachid](https://github.com/turahe) - *Initial work*
+
+## Alternatives
+
+- [spatie/laravel-likes](https://github.com/spatie/laravel-likes) - A simple package to add likes to Eloquent models
+- [rtconner/laravel-likeable](https://github.com/rtconner/laravel-likeable) - Likeable trait for Laravel Eloquent models
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE) for more information.
+
+## About Turahe
+
+Turahe is a software development company focused on creating high-quality Laravel packages and applications. Visit us at [turahe.id](https://turahe.id).

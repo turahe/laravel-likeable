@@ -20,18 +20,20 @@ class ToggleTest extends BaseTestCase
     {
         parent::getEnvironmentSetUp($app);
 
-        Schema::create('books', function ($table) {
-            $table->bigIncrements('id');
-            $table->string('name');
-            $table->timestamps();
-        });
-
         Schema::create('users', function ($table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->timestamps();
         });
+
+        Schema::create('books', function ($table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->timestamps();
+        });
     }
+
+
 
     public function tearDown(): void
     {
@@ -94,6 +96,7 @@ class ToggleTest extends BaseTestCase
 
         // Toggle to dislike
         $stub->dislikeToggle(1);
+        $stub->refresh();
         $this->assertEquals(0, $stub->likes_count);
         $this->assertEquals(1, $stub->dislikes_count);
         $this->assertFalse($stub->liked(1));
@@ -101,6 +104,7 @@ class ToggleTest extends BaseTestCase
 
         // Toggle back to like
         $stub->likeToggle(1);
+        $stub->refresh();
         $this->assertEquals(1, $stub->likes_count);
         $this->assertEquals(0, $stub->dislikes_count);
         $this->assertTrue($stub->liked(1));
@@ -123,12 +127,14 @@ class ToggleTest extends BaseTestCase
 
         // User 2 toggles like
         $stub->likeToggle(2);
+        $stub->refresh();
         $this->assertEquals(2, $stub->likes_count);
         $this->assertTrue($stub->liked(1));
         $this->assertTrue($stub->liked(2));
 
         // User 1 toggles off
         $stub->likeToggle(1);
+        $stub->refresh();
         $this->assertEquals(1, $stub->likes_count);
         $this->assertFalse($stub->liked(1));
         $this->assertTrue($stub->liked(2));

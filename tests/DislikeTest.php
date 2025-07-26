@@ -80,6 +80,7 @@ class DislikeTest extends BaseTestCase
         $this->assertEquals(1, $stub->dislikes_count);
 
         $stub->undislike(1);
+        $stub->refresh();
         $this->assertEquals(0, $stub->dislikes_count);
     }
 
@@ -98,6 +99,7 @@ class DislikeTest extends BaseTestCase
 
         // Second toggle should remove dislike
         $stub->dislikeToggle(1);
+        $stub->refresh();
         $this->assertEquals(0, $stub->dislikes_count);
         $this->assertFalse($stub->disliked(1));
     }
@@ -116,6 +118,7 @@ class DislikeTest extends BaseTestCase
         $this->assertTrue($stub->disliked(1));
 
         $stub->undislike(1);
+        $stub->refresh();
         $this->assertFalse($stub->disliked(1));
     }
 
@@ -133,6 +136,7 @@ class DislikeTest extends BaseTestCase
         $this->assertTrue($stub->disliked(1));
 
         $stub->undislike(1);
+        $stub->refresh();
         $this->assertFalse($stub->disliked(1));
     }
 
@@ -167,6 +171,7 @@ class DislikeTest extends BaseTestCase
         $this->assertEquals(3, $stub->dislikes_count);
 
         $stub->removeDislikes();
+        $stub->refresh();
 
         $this->assertEquals(0, $stub->dislikes_count);
         $this->assertEquals(0, Like::where('likeable_id', $stub->id)->count());
@@ -185,6 +190,7 @@ class DislikeTest extends BaseTestCase
         $stub->like(3);
         $stub->dislike(4);
         $stub->dislike(5);
+        $stub->refresh();
 
         // 3 likes - 2 dislikes = 1
         $this->assertEquals(1, $stub->likes_diff_dislikes_count);

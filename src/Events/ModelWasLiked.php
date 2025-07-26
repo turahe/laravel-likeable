@@ -14,14 +14,14 @@ class ModelWasLiked
      *
      * @var \Turahe\Likeable\Contracts\Likeable
      */
-    public $model;
+    public $likeable;
 
     /**
      * User id who liked model.
      *
      * @var int
      */
-    public $likerId;
+    public $userId;
 
     /**
      * Create a new event instance.
@@ -30,9 +30,9 @@ class ModelWasLiked
      * @param int $likerId
      * @return void
      */
-    public function __construct(LikeableContract $likeable, $likerId)
+    public function __construct(LikeableContract $likeable, $userId)
     {
-        $this->model = $likeable;
-        $this->likerId = $likerId;
+        $this->likeable = $likeable;
+        $this->userId = $userId;
     }
 }

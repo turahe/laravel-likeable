@@ -27,6 +27,12 @@ class EventTest extends BaseTestCase
     {
         parent::getEnvironmentSetUp($app);
 
+        Schema::create('users', function ($table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->timestamps();
+        });
+
         Schema::create('books', function ($table) {
             $table->bigIncrements('id');
             $table->string('name');
@@ -37,6 +43,7 @@ class EventTest extends BaseTestCase
     public function tearDown(): void
     {
         Schema::drop('books');
+        Schema::drop('users');
     }
 
     /**

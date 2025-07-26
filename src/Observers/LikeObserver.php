@@ -23,12 +23,10 @@ class LikeObserver
      */
     public function created(LikeContract $like)
     {
-        if ($like->type_id == LikeType::LIKE) {
+        if ($like->type_id == LikeType::LIKE->value) {
             event(new ModelWasLiked($like->likeable, $like->user_id));
-            app(LikeableServiceContract::class)->incrementLikesCount($like->likeable);
         } else {
             event(new ModelWasDisliked($like->likeable, $like->user_id));
-            app(LikeableServiceContract::class)->incrementDislikesCount($like->likeable);
         }
     }
 
@@ -40,12 +38,10 @@ class LikeObserver
      */
     public function deleted(LikeContract $like)
     {
-        if ($like->type_id == LikeType::LIKE) {
+        if ($like->type_id == LikeType::LIKE->value) {
             event(new ModelWasUnliked($like->likeable, $like->user_id));
-            app(LikeableServiceContract::class)->decrementLikesCount($like->likeable);
         } else {
             event(new ModelWasUndisliked($like->likeable, $like->user_id));
-            app(LikeableServiceContract::class)->decrementDislikesCount($like->likeable);
         }
     }
 }

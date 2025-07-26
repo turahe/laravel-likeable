@@ -35,24 +35,52 @@ class LikeableService implements LikeableServiceContract
         ])->first();
 
         if (! $like) {
-            $likeable->likes()->create([
+            $newLike = $likeable->likes()->create([
                 'user_id' => $userId,
                 'type_id' => $this->getLikeTypeId($type),
             ]);
 
+            // Update counters and dispatch events
+            if ($type === LikeType::LIKE) {
+                $this->incrementLikesCount($likeable);
+                event(new \Turahe\Likeable\Events\ModelWasLiked($likeable, $userId));
+            } else {
+                $this->incrementDislikesCount($likeable);
+                event(new \Turahe\Likeable\Events\ModelWasDisliked($likeable, $userId));
+            }
+
             return;
         }
 
+        // If like already exists with same type, don't do anything
         if ($like->type_id == $this->getLikeTypeId($type)) {
             return;
         }
 
+        // If like exists with different type, delete it and create new one
+        $oldType = $like->type_id;
         $like->delete();
 
-        $likeable->likes()->create([
+        // Decrement the old type counter
+        if ($oldType == LikeType::LIKE->value) {
+            $this->decrementLikesCount($likeable);
+        } else {
+            $this->decrementDislikesCount($likeable);
+        }
+
+        $newLike = $likeable->likes()->create([
             'user_id' => $userId,
             'type_id' => $this->getLikeTypeId($type),
         ]);
+
+        // Update counters and dispatch events
+        if ($type === LikeType::LIKE) {
+            $this->incrementLikesCount($likeable);
+            event(new \Turahe\Likeable\Events\ModelWasLiked($likeable, $userId));
+        } else {
+            $this->incrementDislikesCount($likeable);
+            event(new \Turahe\Likeable\Events\ModelWasDisliked($likeable, $userId));
+        }
     }
 
     /**
@@ -68,9 +96,12 @@ class LikeableService implements LikeableServiceContract
      */
     public function removeLikeFrom(LikeableContract $likeable, LikeType $type, $userId)
     {
+        $userId = $this->getLikerUserId($userId);
+        $typeId = $this->getLikeTypeId($type);
+        
         $like = $likeable->likesAndDislikes()->where([
-            'user_id' => $this->getLikerUserId($userId),
-            'type_id' => $this->getLikeTypeId($type),
+            'user_id' => $userId,
+            'type_id' => $typeId,
         ])->first();
 
         if (! $like) {
@@ -79,14 +110,17 @@ class LikeableService implements LikeableServiceContract
 
         // Store the type before deleting the like
         $likeType = $like->type_id;
+        $likeUserId = $like->user_id;
 
         $like->delete();
 
-        // Explicitly update the counter since the observer might not be triggered
+        // Update counters and dispatch events
         if ($likeType == LikeType::LIKE->value) {
             $this->decrementLikesCount($likeable);
+            event(new \Turahe\Likeable\Events\ModelWasUnliked($likeable, $likeUserId));
         } else {
             $this->decrementDislikesCount($likeable);
+            event(new \Turahe\Likeable\Events\ModelWasUndisliked($likeable, $likeUserId));
         }
     }
 
@@ -183,7 +217,7 @@ class LikeableService implements LikeableServiceContract
         if (! $counter) {
             $counter = $likeable->likesCounter()->create([
                 'count' => 0,
-                'type_id' => LikeType::LIKE,
+                'type_id' => LikeType::LIKE->value,
             ]);
         }
 
@@ -208,6 +242,12 @@ class LikeableService implements LikeableServiceContract
 
         // Refresh the relationship to reflect the updated count
         $likeable->load('dislikesCounter');
+        
+        // If counter reaches 0, delete it to maintain consistency
+        if ($counter->fresh()->count <= 0) {
+            $counter->delete();
+            $likeable->load('dislikesCounter');
+        }
     }
 
     /**
@@ -223,7 +263,7 @@ class LikeableService implements LikeableServiceContract
         if (! $counter) {
             $counter = $likeable->dislikesCounter()->create([
                 'count' => 0,
-                'type_id' => LikeType::DISLIKE,
+                'type_id' => LikeType::DISLIKE->value,
             ]);
         }
 
@@ -425,14 +465,14 @@ class LikeableService implements LikeableServiceContract
     protected function getLikeTypeId($type)
     {
         if ($type instanceof LikeType) {
-            $typeName = $type->name;
+            return $type->value;
         } else {
             $typeName = strtoupper($type);
         }
         if (!defined("\\Turahe\\Likeable\\Enums\\LikeType::{$typeName}")) {
             throw new LikeTypeInvalidException("Like type `{$typeName}` not exist");
         }
-        return constant("\\Turahe\\Likeable\\Enums\\LikeType::{$typeName}");
+        return constant("\\Turahe\\Likeable\\Enums\\LikeType::{$typeName}")->value;
     }
 
     /**
