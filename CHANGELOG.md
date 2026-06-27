@@ -4,6 +4,32 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v1.0.0.html).
 
+## [Unreleased]
+- Ongoing improvements and maintenance.
+
+## [1.3.0] - 2026-06-27
+### Added
+- Docker-based development and testing (`Dockerfile`, `Makefile`, `docker/composer-install.sh`, `docker/test.sh`)
+- Multi-PHP vendor caching via per-version `.build/vendor-php-*` directories
+- Laravel 10 and Laravel 13 support in `illuminate/database` and `illuminate/support` constraints
+- PHP 8.5 test target in the Docker Makefile
+
+### Changed
+- `LikeCounter::rebuild()` now delegates to `LikeableService` for counter removal and recounting
+- `getLikeTypeId()` resolves string types with `LikeType::tryFrom()` instead of constant lookup
+- `fetchLikesCounters()` normalizes model class names to morph types
+- `likeTypeRelations()` uses `LikeType` enum values as relation map keys
+- Test suite no longer uses `@runInSeparateProcess`; runs in ~13 seconds instead of timing out
+- `BaseTestCase` uses `migrate:fresh` for reliable per-test database isolation
+- Code style updated with Laravel Pint across `src/`, `tests/`, and `migrations/`
+- `LikeObserver` uses strict `===` comparison for like type checks
+
+### Fixed
+- Composer 300-second process timeout when running the full test suite in Docker
+- Morph map leaking between tests (`Relation::morphMap([], false)` in `ConsoleCommandTest`)
+- `fetchLikesCounters()` returning empty results when a morph map is registered
+- Test `tearDown()` methods now call `parent::tearDown()` for proper application cleanup
+
 ## [1.2.0] - 2025-01-27
 ### Added
 - Automated release workflows for version management and deployment
@@ -17,9 +43,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Enhanced CI/CD pipeline with automated release management
 - Improved changelog generation and maintenance process
 - Updated README with comprehensive release process documentation
-
-## [Unreleased]
-- Ongoing improvements and maintenance.
 
 ## [1.0.0] - 2025-07-26
 ### Added
@@ -48,6 +71,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [0.0.1] - 2023-xx-xx
 - Initial release with basic like/dislike functionality, events, and artisan command support.
 
-[Unreleased]: https://github.com/turahe/laravel-likeable/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/turahe/laravel-likeable/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/turahe/laravel-likeable/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/turahe/laravel-likeable/compare/v1.0.0...v1.2.0
 [1.0.0]: https://github.com/turahe/laravel-likeable/releases/tag/v1.0.0 

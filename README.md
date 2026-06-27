@@ -7,8 +7,8 @@
 [![Release](https://github.com/turahe/laravel-likeable/actions/workflows/release.yml/badge.svg)](https://github.com/turahe/laravel-likeable/actions/workflows/release.yml)
 [![Version Bump](https://github.com/turahe/laravel-likeable/actions/workflows/version-bump.yml/badge.svg)](https://github.com/turahe/laravel-likeable/actions/workflows/version-bump.yml)
 [![Code Coverage](https://codecov.io/gh/turahe/laravel-likeable/branch/main/graph/badge.svg)](https://codecov.io/gh/turahe/laravel-likeable)
-[![PHP Version](https://img.shields.io/badge/php-8.3%2B-blue.svg)](https://php.net)
-[![Laravel Version](https://img.shields.io/badge/laravel-11%2B%20%7C%2012%2B-red.svg)](https://laravel.com)
+[![PHP Version](https://img.shields.io/badge/php-8.3%20%7C%208.4%20%7C%208.5-blue.svg)](https://php.net)
+[![Laravel Version](https://img.shields.io/badge/laravel-10%20%7C%2011%20%7C%2012%20%7C%2013-red.svg)](https://laravel.com)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 [![Semantic Versioning](https://img.shields.io/badge/semver-2.0.0-green.svg)](https://semver.org)
 [![Tests](https://img.shields.io/badge/tests-79%20passing-brightgreen.svg)](https://github.com/turahe/laravel-likeable/actions/workflows/tests.yml)
@@ -54,8 +54,10 @@ Laravel Likeable simplifies management of Eloquent model's likes & dislikes. Mak
   - [PSR-2 (Coding Style Guide)](http://www.php-fig.org/psr/psr-2/)
   - [PSR-4 (Autoloading Standard)](http://www.php-fig.org/psr/psr-4/)
 - ✅ **Fully tested with PHPUnit**
+- ✅ **Full support for Laravel 10, 11, 12, and 13**
+- ✅ **Docker-based testing across PHP 8.3, 8.4, and 8.5**
 - ✅ **Continuous Integration with GitHub Actions**
-- ✅ **Code style checks with PHP CS Fixer**
+- ✅ **Code style checks with PHP CS Fixer and Laravel Pint**
 - ✅ **Static analysis with Larastan**
 - ✅ **Automated release workflows with conventional commits**
 - ✅ **Semantic versioning and changelog generation**
@@ -430,6 +432,22 @@ This package includes comprehensive test coverage with 79 tests covering all fun
 
 ### Running Tests
 
+#### With Docker (recommended)
+
+Requires [Docker](https://www.docker.com/) and `make`:
+
+```sh
+$ make test          # PHP 8.3 (default)
+$ make test PHP_VERSION=8.4
+$ make test PHP_VERSION=8.5
+$ make test-all      # PHP 8.3, 8.4, and 8.5
+$ make install       # install Composer dependencies in Docker
+$ make format        # run Laravel Pint
+$ make shell         # interactive shell in the container
+```
+
+#### Without Docker
+
 You can run the tests with:
 
 ```sh
@@ -457,8 +475,8 @@ This will generate HTML coverage reports in the `coverage-html` directory.
 This package uses GitHub Actions for continuous integration. The CI pipeline includes:
 
 ### Test Matrix
-- **PHP Versions**: 8.3, 8.4
-- **Laravel Versions**: 11.x, 12.x
+- **PHP Versions**: 8.3, 8.4, 8.5 (Docker Makefile), 8.3, 8.4 (GitHub Actions)
+- **Laravel Versions**: 10.x, 11.x, 12.x, 13.x
 - **Test Coverage**: Generated for PHP 8.3+ + Laravel 11/12.x
 
 ### CI Jobs
@@ -477,6 +495,7 @@ $ composer check
 # Run specific checks
 $ composer test          # Run tests
 $ composer test:coverage # Run tests with coverage
+$ composer format        # Format code with Laravel Pint
 $ composer lint          # Check code style
 $ composer analyse       # Run static analysis
 ```
@@ -511,8 +530,8 @@ This package uses automated release workflows for version management and deploym
 1. **Prepare Changes**: Ensure all changes follow conventional commit format
 2. **Create Tag**: Create and push a new version tag
    ```bash
-   git tag v1.2.3
-   git push origin v1.2.3
+   git tag v1.3.0
+   git push origin v1.3.0
    ```
 3. **Automated Process**: The release workflow will automatically:
    - Run all quality checks
