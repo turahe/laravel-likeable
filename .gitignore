@@ -11,3 +11,5 @@ composer.lock
 .build
 .phpintel/*
 .phpunit.result.cache
+coverage.xml
+coverage-html/

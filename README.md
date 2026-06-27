@@ -6,7 +6,7 @@
 [![Tests](https://github.com/turahe/laravel-likeable/actions/workflows/tests.yml/badge.svg)](https://github.com/turahe/laravel-likeable/actions/workflows/tests.yml)
 [![Release](https://github.com/turahe/laravel-likeable/actions/workflows/release.yml/badge.svg)](https://github.com/turahe/laravel-likeable/actions/workflows/release.yml)
 [![Version Bump](https://github.com/turahe/laravel-likeable/actions/workflows/version-bump.yml/badge.svg)](https://github.com/turahe/laravel-likeable/actions/workflows/version-bump.yml)
-[![Code Coverage](https://codecov.io/gh/turahe/laravel-likeable/branch/main/graph/badge.svg)](https://codecov.io/gh/turahe/laravel-likeable)
+[![Code Coverage](https://codecov.io/gh/turahe/laravel-likeable/branch/master/graph/badge.svg)](https://codecov.io/gh/turahe/laravel-likeable)
 [![PHP Version](https://img.shields.io/badge/php-8.3%20%7C%208.4%20%7C%208.5-blue.svg)](https://php.net)
 [![Laravel Version](https://img.shields.io/badge/laravel-10%20%7C%2011%20%7C%2012%20%7C%2013-red.svg)](https://laravel.com)
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
@@ -501,7 +501,9 @@ $ composer analyse       # Run static analysis
 ```
 
 ### Code Coverage
-Code coverage reports are generated and uploaded to [Codecov](https://codecov.io/gh/turahe/laravel-likeable).
+Code coverage reports are generated in CI and uploaded to [Codecov](https://codecov.io/gh/turahe/laravel-likeable).
+
+Add a `CODECOV_TOKEN` repository secret from your [Codecov project settings](https://app.codecov.io/gh/turahe/laravel-likeable/settings) so GitHub Actions can upload coverage reports.
 
 ## Release Process
 

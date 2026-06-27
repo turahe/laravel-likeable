@@ -46,8 +46,8 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: ${{ matrix.php }}
-        extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, sqlite3, xdebug
-        coverage: xdebug
+        extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, sqlite3
+        coverage: none
 
     - name: Install dependencies
       run: |
@@ -58,16 +58,7 @@ jobs:
       run: cp phpunit.xml.dist phpunit.xml
 
     - name: Execute tests (Unit and Feature) via PHPUnit
-      run: vendor/bin/phpunit --coverage-clover=coverage.xml
-
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        file: ./coverage.xml
-        flags: unittests
-        name: codecov-umbrella
-        fail_ci_if_error: false
-        verbose: true
+      run: vendor/bin/phpunit
 
   static-analysis:
     runs-on: ubuntu-latest
@@ -148,6 +139,8 @@ jobs:
 
   test-coverage:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     strategy:
       matrix:
         php: [8.4]
@@ -160,6 +153,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
 
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
@@ -173,15 +168,19 @@ jobs:
         composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --dev --no-interaction --no-update
         composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction
 
+    - name: Copy phpunit.xml.dist
+      run: cp phpunit.xml.dist phpunit.xml
+
     - name: Execute tests with coverage
       run: vendor/bin/phpunit --coverage-clover=coverage.xml --coverage-html=coverage-html
 
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v5
       with:
-        file: ./coverage.xml
-        flags: coverage
-        name: codecov-coverage
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: coverage.xml
+        flags: unittests
+        name: codecov-php-${{ matrix.php }}
         fail_ci_if_error: false
         verbose: true
 
