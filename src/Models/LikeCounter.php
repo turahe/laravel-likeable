@@ -3,6 +3,7 @@
 namespace Turahe\Likeable\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Turahe\Likeable\Contracts\LikeableService as LikeableServiceContract;
 use Turahe\Likeable\Contracts\LikeCounter as LikeCounterContract;
 
 /**
@@ -58,37 +59,20 @@ class LikeCounter extends Model implements LikeCounterContract
         return $this->morphTo();
     }
 
-    /**
-     * Rebuild the like counters for a given model class.
-     *
-     * @param  string  $modelClass
-     * @return void
-     */
-    public static function rebuild($modelClass)
+    public static function rebuild(string $modelClass, ?string $type = null): void
     {
-        if (class_exists($modelClass)) {
-            $model = new $modelClass();
-            $likeableType = $model->getMorphClass();
-        } else {
-            $likeableType = $modelClass;
-        }
+        $model = new $modelClass;
+        $modelType = $model->getMorphClass();
+        $service = app(LikeableServiceContract::class);
 
-        // Delete existing counters for this type
-        self::where('likeable_type', $likeableType)->delete();
+        $service->removeLikeCountersOfType($modelType, $type);
 
-        // Get counts from likes table and create new counters
-        $counts = \DB::table('likes')
-            ->select('likeable_id', 'likeable_type', 'type_id', \DB::raw('COUNT(*) as count'))
-            ->where('likeable_type', $likeableType)
-            ->groupBy('likeable_id', 'likeable_type', 'type_id')
-            ->get();
-
-        foreach ($counts as $count) {
-            self::create([
-                'likeable_id' => $count->likeable_id,
-                'likeable_type' => $count->likeable_type,
-                'type_id' => $count->type_id,
-                'count' => $count->count,
+        foreach ($service->fetchLikesCounters($modelType, $type) as $counter) {
+            static::create([
+                'likeable_type' => $counter['likeable_type'],
+                'likeable_id' => $counter['likeable_id'],
+                'type_id' => $counter['type_id'],
+                'count' => $counter['count'],
             ]);
         }
     }

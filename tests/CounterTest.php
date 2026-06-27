@@ -18,35 +18,27 @@ class CounterTest extends BaseTestCase
         });
     }
 
-    protected function tearDown(): void
+    public function tearDown(): void
     {
-        Schema::drop('books');
+        parent::tearDown();
     }
 
-    /**
-     * @runInSeparateProcess
-     */
-    public function test_like()
+    public function testLike()
     {
-        $likeable = Stub::create(['name' => 'test']);
+        $stub = Stub::create(['name' => 'test']);
 
-        $likeable->like(1);
+        $stub->like(1);
 
-        $this->assertEquals(1, $likeable->likes_count);
+        $this->assertEquals(1, $stub->likesCount);
     }
 
-    /**
-     * @runInSeparateProcess
-     */
-    public function test_unlike()
+    public function testUnlike()
     {
-        $likeable = Stub::create(['name' => 'test']);
+        $stub = Stub::create(['name' => 'test']);
 
-        $likeable->like(1);
-        $this->assertEquals(1, $likeable->likes_count);
+        $stub->like(1);
+        $stub->unlike(1);
 
-        $likeable->unlike(1);
-
-        $this->assertEquals(0, $likeable->likes_count);
+        $this->assertEquals(0, $stub->likesCount);
     }
 }

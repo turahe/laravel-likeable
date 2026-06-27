@@ -3,6 +3,7 @@
 namespace Turahe\Tests\Likeable;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\Schema;
 use Turahe\Likeable\Models\Like;
 use Turahe\Likeable\Models\LikeCounter;
@@ -17,9 +18,16 @@ class ConsoleCommandTest extends BaseTestCase
         Model::unguard();
 
         // Register morph map for testing
-        \Illuminate\Database\Eloquent\Relations\Relation::morphMap([
+        Relation::morphMap([
             'Stub' => Stub::class,
         ]);
+    }
+
+    protected function tearDown(): void
+    {
+        Relation::morphMap([], false);
+
+        parent::tearDown();
     }
 
     protected function getEnvironmentSetUp($app)
@@ -33,14 +41,6 @@ class ConsoleCommandTest extends BaseTestCase
         });
     }
 
-    protected function tearDown(): void
-    {
-        Schema::drop('books');
-    }
-
-    /**
-     * @runInSeparateProcess
-     */
     public function test_recount_command_for_specific_model()
     {
         // Create some test data
@@ -65,10 +65,6 @@ class ConsoleCommandTest extends BaseTestCase
         $this->assertEquals(2, $stub1->likes_count);
         $this->assertEquals(1, $stub2->likes_count);
     }
-
-    /**
-     * @runInSeparateProcess
-     */
     public function test_recount_command_for_all_models()
     {
         // Create test data
@@ -92,10 +88,6 @@ class ConsoleCommandTest extends BaseTestCase
         $this->assertEquals(1, $stub1->likes_count);
         $this->assertEquals(1, $stub2->dislikes_count);
     }
-
-    /**
-     * @runInSeparateProcess
-     */
     public function test_recount_command_with_type_filter()
     {
         // Create test data
@@ -125,10 +117,6 @@ class ConsoleCommandTest extends BaseTestCase
         $this->assertEquals(1, $stub2->likes_count);
         $this->assertEquals(1, $stub1->dislikes_count);
     }
-
-    /**
-     * @runInSeparateProcess
-     */
     public function test_recount_command_with_dislike_type()
     {
         // Create test data
@@ -158,10 +146,6 @@ class ConsoleCommandTest extends BaseTestCase
         $this->assertEquals(1, $stub1->dislikes_count);
         $this->assertEquals(1, $stub2->dislikes_count);
     }
-
-    /**
-     * @runInSeparateProcess
-     */
     public function test_recount_command_handles_empty_data()
     {
         // No test data created
@@ -173,10 +157,6 @@ class ConsoleCommandTest extends BaseTestCase
         // Should not throw any errors
         $this->assertTrue(true);
     }
-
-    /**
-     * @runInSeparateProcess
-     */
     public function test_recount_command_with_model_alias()
     {
         // Create test data

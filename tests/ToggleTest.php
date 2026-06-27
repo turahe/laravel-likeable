@@ -35,13 +35,9 @@ class ToggleTest extends BaseTestCase
 
     protected function tearDown(): void
     {
-        Schema::drop('books');
-        Schema::drop('users');
+        parent::tearDown();
     }
 
-    /**
-     * @runInSeparateProcess
-     */
     public function test_like_toggle()
     {
         /** @var Stub $stub */
@@ -57,10 +53,6 @@ class ToggleTest extends BaseTestCase
         $this->assertEquals(0, $stub->likes_count);
         $this->assertFalse($stub->liked(1));
     }
-
-    /**
-     * @runInSeparateProcess
-     */
     public function test_dislike_toggle()
     {
         /** @var Stub $stub */
@@ -76,10 +68,6 @@ class ToggleTest extends BaseTestCase
         $this->assertEquals(0, $stub->dislikes_count);
         $this->assertFalse($stub->disliked(1));
     }
-
-    /**
-     * @runInSeparateProcess
-     */
     public function test_toggle_switches_between_like_and_dislike()
     {
         /** @var Stub $stub */
@@ -108,10 +96,6 @@ class ToggleTest extends BaseTestCase
         $this->assertTrue($stub->liked(1));
         $this->assertFalse($stub->disliked(1));
     }
-
-    /**
-     * @runInSeparateProcess
-     */
     public function test_multiple_users_toggle()
     {
         /** @var Stub $stub */

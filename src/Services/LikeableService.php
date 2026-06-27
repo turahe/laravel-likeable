@@ -383,6 +383,12 @@ class LikeableService implements LikeableServiceContract
      */
     public function fetchLikesCounters($likeableType, $likeType)
     {
+        if (class_exists($likeableType)) {
+            /** @var \Turahe\Likeable\Contracts\Likeable $likeable */
+            $likeable = new $likeableType();
+            $likeableType = $likeable->getMorphClass();
+        }
+
         /** @var \Illuminate\Database\Eloquent\Builder $likesCount */
         $likesCount = app(LikeContract::class)
             ->select([
@@ -443,18 +449,19 @@ class LikeableService implements LikeableServiceContract
      *
      * @throws \Turahe\Likeable\Exceptions\LikeTypeInvalidException
      */
-    protected function getLikeTypeId($type)
+    protected function getLikeTypeId(LikeType|string $type): string
     {
         if ($type instanceof LikeType) {
             return $type->value;
-        } else {
-            $typeName = strtoupper($type);
-        }
-        if (! defined("\\Turahe\\Likeable\\Enums\\LikeType::{$typeName}")) {
-            throw new LikeTypeInvalidException("Like type `{$typeName}` not exist");
         }
 
-        return constant("\\Turahe\\Likeable\\Enums\\LikeType::{$typeName}")->value;
+        $enum = LikeType::tryFrom(strtolower($type));
+
+        if ($enum !== null) {
+            return $enum->value;
+        }
+
+        throw new LikeTypeInvalidException("Like type `{$type}` not exist");
     }
 
     /**
@@ -509,11 +516,11 @@ class LikeableService implements LikeableServiceContract
             throw new LikeTypeInvalidException("Like type `{$type}` not supported");
         }
         $relations = [
-            'like' => [
+            LikeType::LIKE->value => [
                 'likes',
                 'likesAndDislikes',
             ],
-            'dislike' => [
+            LikeType::DISLIKE->value => [
                 'dislikes',
                 'likesAndDislikes',
             ],

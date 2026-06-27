@@ -16,7 +16,7 @@ abstract class BaseTestCase extends TestCase
     {
         parent::setUp();
 
-        $this->artisan('migrate')->run();
+        $this->artisan('migrate:fresh');
     }
 
     /**

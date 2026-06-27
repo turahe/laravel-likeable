@@ -21,7 +21,7 @@ class LikeObserver
      */
     public function created(LikeContract $like)
     {
-        if ($like->type_id == LikeType::LIKE->value) {
+        if ($like->type_id === LikeType::LIKE->value) {
             event(new ModelWasLiked($like->likeable, $like->user_id));
         } else {
             event(new ModelWasDisliked($like->likeable, $like->user_id));
@@ -35,7 +35,7 @@ class LikeObserver
      */
     public function deleted(LikeContract $like)
     {
-        if ($like->type_id == LikeType::LIKE->value) {
+        if ($like->type_id === LikeType::LIKE->value) {
             event(new ModelWasUnliked($like->likeable, $like->user_id));
         } else {
             event(new ModelWasUndisliked($like->likeable, $like->user_id));
