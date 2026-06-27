@@ -3,11 +3,11 @@
 namespace Turahe\Likeable\Models;
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Turahe\Likeable\Contracts\Like as LikeContract;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class Like.

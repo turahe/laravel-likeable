@@ -2,23 +2,23 @@
 
 namespace Turahe\Likeable\Services;
 
-use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Query\JoinClause;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
-use Turahe\Likeable\Contracts\Like as LikeContract;
-use Turahe\Likeable\Contracts\Likeable;
-use Turahe\Likeable\Contracts\Likeable as LikeableContract;
-use Turahe\Likeable\Contracts\LikeableService as LikeableServiceContract;
-use Turahe\Likeable\Contracts\LikeCounter as LikeCounterContract;
 use Turahe\Likeable\Enums\LikeType;
-use Turahe\Likeable\Events\ModelWasDisliked;
+use Turahe\Likeable\Contracts\Likeable;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Query\JoinClause;
 use Turahe\Likeable\Events\ModelWasLiked;
-use Turahe\Likeable\Events\ModelWasUndisliked;
 use Turahe\Likeable\Events\ModelWasUnliked;
+use Turahe\Likeable\Events\ModelWasDisliked;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Turahe\Likeable\Events\ModelWasUndisliked;
+use Turahe\Likeable\Contracts\Like as LikeContract;
 use Turahe\Likeable\Exceptions\LikerNotDefinedException;
 use Turahe\Likeable\Exceptions\LikeTypeInvalidException;
+use Turahe\Likeable\Contracts\Likeable as LikeableContract;
+use Turahe\Likeable\Contracts\LikeCounter as LikeCounterContract;
+use Turahe\Likeable\Contracts\LikeableService as LikeableServiceContract;
 
 class LikeableService implements LikeableServiceContract
 {

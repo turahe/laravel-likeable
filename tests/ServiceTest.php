@@ -2,14 +2,14 @@
 
 namespace Turahe\Tests\Likeable;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Schema;
+use Turahe\Likeable\Models\Like;
 use Turahe\Likeable\Enums\LikeType;
+use Illuminate\Support\Facades\Schema;
+use Turahe\Tests\Likeable\Models\Stub;
+use Illuminate\Database\Eloquent\Model;
+use Turahe\Likeable\Services\LikeableService;
 use Turahe\Likeable\Exceptions\LikerNotDefinedException;
 use Turahe\Likeable\Exceptions\LikeTypeInvalidException;
-use Turahe\Likeable\Models\Like;
-use Turahe\Likeable\Services\LikeableService;
-use Turahe\Tests\Likeable\Models\Stub;
 
 class ServiceTest extends BaseTestCase
 {

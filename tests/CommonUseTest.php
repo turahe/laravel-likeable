@@ -2,11 +2,11 @@
 
 namespace Turahe\Tests\Likeable;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Schema;
 use Turahe\Likeable\Models\Like;
-use Turahe\Likeable\Models\LikeCounter;
+use Illuminate\Support\Facades\Schema;
 use Turahe\Tests\Likeable\Models\Stub;
+use Illuminate\Database\Eloquent\Model;
+use Turahe\Likeable\Models\LikeCounter;
 
 class CommonUseTest extends BaseTestCase
 {

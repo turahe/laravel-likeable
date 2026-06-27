@@ -3,14 +3,14 @@
 namespace Turahe\Likeable\Console;
 
 use Illuminate\Console\Command;
-use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
-use Turahe\Likeable\Contracts\Like as LikeContract;
-use Turahe\Likeable\Contracts\Likeable as LikeableContract;
+use Illuminate\Contracts\Events\Dispatcher;
 use Turahe\Likeable\Contracts\LikeableService;
-use Turahe\Likeable\Contracts\LikeCounter as LikeCounterContract;
+use Turahe\Likeable\Contracts\Like as LikeContract;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Turahe\Likeable\Exceptions\ModelInvalidException;
+use Turahe\Likeable\Contracts\Likeable as LikeableContract;
+use Turahe\Likeable\Contracts\LikeCounter as LikeCounterContract;
 use Turahe\Likeable\Services\LikeableService as LikeableServiceContract;
 
 class LikeableRecountCommand extends Command

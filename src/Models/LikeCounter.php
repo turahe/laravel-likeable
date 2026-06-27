@@ -2,11 +2,11 @@
 
 namespace Turahe\Likeable\Models;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
-use Illuminate\Support\Carbon;
-use Turahe\Likeable\Contracts\LikeableService as LikeableServiceContract;
 use Turahe\Likeable\Contracts\LikeCounter as LikeCounterContract;
+use Turahe\Likeable\Contracts\LikeableService as LikeableServiceContract;
 
 /**
  * Class LikeCounter.

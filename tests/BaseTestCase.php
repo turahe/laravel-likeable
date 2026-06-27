@@ -2,8 +2,8 @@
 
 namespace Turahe\Tests\Likeable;
 
-use Illuminate\Foundation\Application;
 use Orchestra\Testbench\TestCase;
+use Illuminate\Foundation\Application;
 use Turahe\Likeable\LikeableServiceProvider;
 
 abstract class BaseTestCase extends TestCase

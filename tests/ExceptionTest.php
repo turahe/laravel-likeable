@@ -2,9 +2,9 @@
 
 namespace Turahe\Tests\Likeable;
 
+use Turahe\Likeable\Exceptions\ModelInvalidException;
 use Turahe\Likeable\Exceptions\LikerNotDefinedException;
 use Turahe\Likeable\Exceptions\LikeTypeInvalidException;
-use Turahe\Likeable\Exceptions\ModelInvalidException;
 
 class ExceptionTest extends BaseTestCase
 {

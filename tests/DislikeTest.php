@@ -2,10 +2,10 @@
 
 namespace Turahe\Tests\Likeable;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Schema;
 use Turahe\Likeable\Models\Like;
+use Illuminate\Support\Facades\Schema;
 use Turahe\Tests\Likeable\Models\Stub;
+use Illuminate\Database\Eloquent\Model;
 
 class DislikeTest extends BaseTestCase
 {

@@ -2,15 +2,15 @@
 
 namespace Turahe\Tests\Likeable\Models;
 
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
-use Turahe\Likeable\Contracts\Likeable as LikeableContract;
 use Turahe\Likeable\Models\Like;
-use Turahe\Likeable\Models\LikeCounter;
 use Turahe\Likeable\Traits\Likeable;
+use Illuminate\Database\Eloquent\Model;
+use Turahe\Likeable\Models\LikeCounter;
+use Illuminate\Database\Eloquent\Collection;
+use Turahe\Likeable\Contracts\Likeable as LikeableContract;
 
 /**
- * Turahe\Tests\Likeable\Models\LikeableStub
+ * Turahe\Tests\Likeable\Models\LikeableStub.
  *
  * @property-read Collection|Like[] $dislikes
  * @property-read int $dislikes_count
@@ -38,7 +38,11 @@ class LikeableStub extends Model implements LikeableContract
 {
     use Likeable;
 
-    public function incrementLikeCount() {}
+    public function incrementLikeCount()
+    {
+    }
 
-    public function decrementLikeCount() {}
+    public function decrementLikeCount()
+    {
+    }
 }

@@ -2,11 +2,11 @@
 
 namespace Turahe\Likeable\Contracts;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
-use Turahe\Likeable\Contracts\Likeable as LikeableContract;
 use Turahe\Likeable\Enums\LikeType;
+use Illuminate\Database\Eloquent\Builder;
 use Turahe\Likeable\Exceptions\LikerNotDefinedException;
+use Turahe\Likeable\Contracts\Likeable as LikeableContract;
 
 /**
  * Interface LikeableService.

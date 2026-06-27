@@ -2,15 +2,15 @@
 
 namespace Turahe\Tests\Likeable;
 
-use Illuminate\Database\Eloquent\Model;
+use Turahe\Likeable\Models\Like;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Schema;
-use Turahe\Likeable\Events\ModelWasDisliked;
-use Turahe\Likeable\Events\ModelWasLiked;
-use Turahe\Likeable\Events\ModelWasUndisliked;
-use Turahe\Likeable\Events\ModelWasUnliked;
-use Turahe\Likeable\Models\Like;
 use Turahe\Tests\Likeable\Models\Stub;
+use Illuminate\Database\Eloquent\Model;
+use Turahe\Likeable\Events\ModelWasLiked;
+use Turahe\Likeable\Events\ModelWasUnliked;
+use Turahe\Likeable\Events\ModelWasDisliked;
+use Turahe\Likeable\Events\ModelWasUndisliked;
 
 class EventTest extends BaseTestCase
 {

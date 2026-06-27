@@ -2,4 +2,6 @@
 
 namespace Turahe\Likeable\Exceptions;
 
-class LikeTypeInvalidException extends \Exception {}
+class LikeTypeInvalidException extends \Exception
+{
+}

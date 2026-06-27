@@ -2,12 +2,12 @@
 
 namespace Turahe\Likeable\Observers;
 
-use Turahe\Likeable\Contracts\Like as LikeContract;
 use Turahe\Likeable\Enums\LikeType;
-use Turahe\Likeable\Events\ModelWasDisliked;
 use Turahe\Likeable\Events\ModelWasLiked;
-use Turahe\Likeable\Events\ModelWasUndisliked;
 use Turahe\Likeable\Events\ModelWasUnliked;
+use Turahe\Likeable\Events\ModelWasDisliked;
+use Turahe\Likeable\Events\ModelWasUndisliked;
+use Turahe\Likeable\Contracts\Like as LikeContract;
 
 /**
  * Class LikeObserver.

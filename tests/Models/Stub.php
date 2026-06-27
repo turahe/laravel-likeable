@@ -2,8 +2,8 @@
 
 namespace Turahe\Tests\Likeable\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Turahe\Likeable\Traits\Likeable;
+use Illuminate\Database\Eloquent\Model;
 
 class Stub extends Model implements \Turahe\Likeable\Contracts\Likeable
 {
