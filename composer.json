@@ -72,7 +72,7 @@
 			"@test"
 		],
 		"format": "./vendor/bin/pint",
-		"lint": "./vendor/bin/php-cs-fixer fix --dry-run --diff",
+		"lint": "./vendor/bin/pint --test",
 		"test": "./vendor/bin/phpunit --testdox",
 		"test:coverage": "./vendor/bin/phpunit --coverage-html=coverage-html --coverage-clover=coverage.xml"
 	}
