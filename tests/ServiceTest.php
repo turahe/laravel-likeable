@@ -54,6 +54,7 @@ class ServiceTest extends BaseTestCase
         $this->assertEquals(1, $stub->likes_count);
         $this->assertTrue($stub->liked(1));
     }
+
     public function test_add_dislike_to()
     {
         $stub = Stub::create(['name' => 123]);
@@ -63,6 +64,7 @@ class ServiceTest extends BaseTestCase
         $this->assertEquals(1, $stub->dislikes_count);
         $this->assertTrue($stub->disliked(1));
     }
+
     public function test_remove_like_from()
     {
         $stub = Stub::create(['name' => 123]);
@@ -73,6 +75,7 @@ class ServiceTest extends BaseTestCase
         $this->assertEquals(0, $stub->likes_count);
         $this->assertFalse($stub->liked(1));
     }
+
     public function test_remove_dislike_from()
     {
         $stub = Stub::create(['name' => 123]);
@@ -83,6 +86,7 @@ class ServiceTest extends BaseTestCase
         $this->assertEquals(0, $stub->dislikes_count);
         $this->assertFalse($stub->disliked(1));
     }
+
     public function test_toggle_like_of()
     {
         $stub = Stub::create(['name' => 123]);
@@ -97,6 +101,7 @@ class ServiceTest extends BaseTestCase
         $this->assertEquals(0, $stub->likes_count);
         $this->assertFalse($stub->liked(1));
     }
+
     public function test_toggle_dislike_of()
     {
         $stub = Stub::create(['name' => 123]);
@@ -111,6 +116,7 @@ class ServiceTest extends BaseTestCase
         $this->assertEquals(0, $stub->dislikes_count);
         $this->assertFalse($stub->disliked(1));
     }
+
     public function test_is_liked()
     {
         $stub = Stub::create(['name' => 123]);
@@ -120,6 +126,7 @@ class ServiceTest extends BaseTestCase
         $stub->like(1);
         $this->assertTrue($this->service->isLiked($stub, LikeType::LIKE, 1));
     }
+
     public function test_is_disliked()
     {
         $stub = Stub::create(['name' => 123]);
@@ -129,6 +136,7 @@ class ServiceTest extends BaseTestCase
         $stub->dislike(1);
         $this->assertTrue($this->service->isLiked($stub, LikeType::DISLIKE, 1));
     }
+
     public function test_increment_likes_count()
     {
         $stub = Stub::create(['name' => 123]);
@@ -137,6 +145,7 @@ class ServiceTest extends BaseTestCase
 
         $this->assertEquals(1, $stub->likes_count);
     }
+
     public function test_decrement_likes_count()
     {
         $stub = Stub::create(['name' => 123]);
@@ -146,6 +155,7 @@ class ServiceTest extends BaseTestCase
 
         $this->assertEquals(0, $stub->likes_count);
     }
+
     public function test_increment_dislikes_count()
     {
         $stub = Stub::create(['name' => 123]);
@@ -154,6 +164,7 @@ class ServiceTest extends BaseTestCase
 
         $this->assertEquals(1, $stub->dislikes_count);
     }
+
     public function test_decrement_dislikes_count()
     {
         $stub = Stub::create(['name' => 123]);
@@ -164,6 +175,7 @@ class ServiceTest extends BaseTestCase
 
         $this->assertEquals(0, $stub->dislikes_count);
     }
+
     public function test_remove_model_likes()
     {
         $stub = Stub::create(['name' => 123]);
@@ -176,6 +188,7 @@ class ServiceTest extends BaseTestCase
         $this->assertEquals(0, $stub->likes_count);
         $this->assertEquals(1, $stub->dislikes_count);
     }
+
     public function test_remove_model_dislikes()
     {
         $stub = Stub::create(['name' => 123]);
@@ -188,6 +201,7 @@ class ServiceTest extends BaseTestCase
         $this->assertEquals(1, $stub->likes_count);
         $this->assertEquals(0, $stub->dislikes_count);
     }
+
     public function test_remove_like_counters_of_type()
     {
         $stub1 = Stub::create(['name' => 'A']);
@@ -208,6 +222,7 @@ class ServiceTest extends BaseTestCase
         $this->assertEquals(1, $stub2->likes_count);
         $this->assertEquals(1, $stub1->dislikes_count); // Should remain
     }
+
     public function test_fetch_likes_counters()
     {
         $stub1 = Stub::create(['name' => 'A']);
@@ -223,6 +238,7 @@ class ServiceTest extends BaseTestCase
         $this->assertEquals(2, $counters[0]['count']); // stub1 has 2 likes
         $this->assertEquals(1, $counters[1]['count']); // stub2 has 1 like
     }
+
     public function test_scope_where_liked_by()
     {
         $stub1 = Stub::create(['name' => 'A']);
@@ -242,6 +258,7 @@ class ServiceTest extends BaseTestCase
         $this->assertTrue($results->contains($stub2));
         $this->assertFalse($results->contains($stub3));
     }
+
     public function test_scope_order_by_likes_count()
     {
         $stub1 = Stub::create(['name' => 'A']);
@@ -263,6 +280,7 @@ class ServiceTest extends BaseTestCase
         $this->assertEquals($stub2->id, $results->get(1)->id);  // 2 likes
         $this->assertEquals($stub1->id, $results->last()->id);  // 1 like
     }
+
     public function test_liker_not_defined_exception()
     {
         $stub = Stub::create(['name' => 123]);
@@ -271,6 +289,7 @@ class ServiceTest extends BaseTestCase
 
         $this->service->addLikeTo($stub, LikeType::LIKE, null);
     }
+
     public function test_like_type_invalid_exception()
     {
         $stub = Stub::create(['name' => 123]);

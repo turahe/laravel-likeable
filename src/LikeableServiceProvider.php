@@ -2,6 +2,7 @@
 
 namespace Turahe\Likeable;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\ServiceProvider;
 use Turahe\Likeable\Console\LikeableRecountCommand;
 use Turahe\Likeable\Contracts\Like as LikeContract;
@@ -19,7 +20,7 @@ class LikeableServiceProvider extends ServiceProvider
      *
      * @return void
      *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws BindingResolutionException
      */
     public function boot()
     {
@@ -43,7 +44,7 @@ class LikeableServiceProvider extends ServiceProvider
      *
      * @return void
      *
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws BindingResolutionException
      */
     protected function registerObservers()
     {

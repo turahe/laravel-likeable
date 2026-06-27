@@ -2,6 +2,4 @@
 
 namespace Turahe\Likeable\Exceptions;
 
-class ModelInvalidException extends \Exception
-{
-}
+class ModelInvalidException extends \Exception {}

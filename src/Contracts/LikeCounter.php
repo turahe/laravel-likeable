@@ -2,6 +2,8 @@
 
 namespace Turahe\Likeable\Contracts;
 
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+
 /**
  * Interface LikeCounter.
  */
@@ -10,7 +12,7 @@ interface LikeCounter
     /**
      * Likeable model relation.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     * @return MorphTo
      */
     public function likeable();
 }

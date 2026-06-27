@@ -2,9 +2,11 @@
 
 namespace Turahe\Likeable\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Support\Carbon;
 use Turahe\Likeable\Contracts\Like as LikeContract;
 
 /**
@@ -15,9 +17,9 @@ use Turahe\Likeable\Contracts\Like as LikeContract;
  * @property int $likeable_id
  * @property int $user_id
  * @property string $type_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\User $author
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read User $author
  * @property-read Model|\Eloquent $likeable
  *
  * @method static \Illuminate\Database\Eloquent\Builder|Like newModelQuery()

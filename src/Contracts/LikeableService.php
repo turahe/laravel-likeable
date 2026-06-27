@@ -3,8 +3,10 @@
 namespace Turahe\Likeable\Contracts;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 use Turahe\Likeable\Contracts\Likeable as LikeableContract;
 use Turahe\Likeable\Enums\LikeType;
+use Turahe\Likeable\Exceptions\LikerNotDefinedException;
 
 /**
  * Interface LikeableService.
@@ -17,7 +19,7 @@ interface LikeableService
      * @param  string  $userId
      * @return void
      *
-     * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
+     * @throws LikerNotDefinedException
      */
     public function addLikeTo(LikeableContract $likeable, LikeType $type, $userId);
 
@@ -27,7 +29,7 @@ interface LikeableService
      * @param  int|null  $userId
      * @return void
      *
-     * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
+     * @throws LikerNotDefinedException
      */
     public function removeLikeFrom(LikeableContract $likeable, LikeType $type, $userId);
 
@@ -37,7 +39,7 @@ interface LikeableService
      * @param  string  $userId
      * @return void
      *
-     * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
+     * @throws LikerNotDefinedException
      */
     public function toggleLikeOf(LikeableContract $likeable, LikeType $type, $userId);
 
@@ -96,14 +98,14 @@ interface LikeableService
     /**
      * Get collection of users who liked entity.
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public function collectLikersOf(LikeableContract $likeable);
 
     /**
      * Get collection of users who disliked entity.
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public function collectDislikersOf(LikeableContract $likeable);
 
@@ -111,9 +113,9 @@ interface LikeableService
      * Fetch records that are liked by a given user id.
      *
      * @param  int|null  $userId
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      *
-     * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
+     * @throws LikerNotDefinedException
      */
     public function scopeWhereLikedBy(Builder $query, LikeType $type, $userId);
 
@@ -121,7 +123,7 @@ interface LikeableService
      * Fetch records sorted by likes count.
      *
      * @param  string  $direction
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     public function scopeOrderByLikesCount(Builder $query, LikeType $likeType, $direction = 'desc');
 

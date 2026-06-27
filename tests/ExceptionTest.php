@@ -16,6 +16,7 @@ class ExceptionTest extends BaseTestCase
         $this->assertEquals('User ID is required', $exception->getMessage());
         $this->assertEquals(0, $exception->getCode());
     }
+
     public function test_like_type_invalid_exception()
     {
         $exception = new LikeTypeInvalidException('Invalid like type provided');
@@ -24,6 +25,7 @@ class ExceptionTest extends BaseTestCase
         $this->assertEquals('Invalid like type provided', $exception->getMessage());
         $this->assertEquals(0, $exception->getCode());
     }
+
     public function test_model_invalid_exception()
     {
         $exception = new ModelInvalidException('Invalid model provided');
@@ -32,12 +34,14 @@ class ExceptionTest extends BaseTestCase
         $this->assertEquals('Invalid model provided', $exception->getMessage());
         $this->assertEquals(0, $exception->getCode());
     }
+
     public function test_exception_inheritance()
     {
-        $this->assertInstanceOf(\Exception::class, new LikerNotDefinedException());
-        $this->assertInstanceOf(\Exception::class, new LikeTypeInvalidException());
-        $this->assertInstanceOf(\Exception::class, new ModelInvalidException());
+        $this->assertInstanceOf(\Exception::class, new LikerNotDefinedException);
+        $this->assertInstanceOf(\Exception::class, new LikeTypeInvalidException);
+        $this->assertInstanceOf(\Exception::class, new ModelInvalidException);
     }
+
     public function test_exception_with_custom_code()
     {
         $exception = new LikerNotDefinedException('Custom message', 500);

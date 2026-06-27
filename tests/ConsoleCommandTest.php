@@ -65,6 +65,7 @@ class ConsoleCommandTest extends BaseTestCase
         $this->assertEquals(2, $stub1->likes_count);
         $this->assertEquals(1, $stub2->likes_count);
     }
+
     public function test_recount_command_for_all_models()
     {
         // Create test data
@@ -88,6 +89,7 @@ class ConsoleCommandTest extends BaseTestCase
         $this->assertEquals(1, $stub1->likes_count);
         $this->assertEquals(1, $stub2->dislikes_count);
     }
+
     public function test_recount_command_with_type_filter()
     {
         // Create test data
@@ -117,6 +119,7 @@ class ConsoleCommandTest extends BaseTestCase
         $this->assertEquals(1, $stub2->likes_count);
         $this->assertEquals(1, $stub1->dislikes_count);
     }
+
     public function test_recount_command_with_dislike_type()
     {
         // Create test data
@@ -146,6 +149,7 @@ class ConsoleCommandTest extends BaseTestCase
         $this->assertEquals(1, $stub1->dislikes_count);
         $this->assertEquals(1, $stub2->dislikes_count);
     }
+
     public function test_recount_command_handles_empty_data()
     {
         // No test data created
@@ -157,6 +161,7 @@ class ConsoleCommandTest extends BaseTestCase
         // Should not throw any errors
         $this->assertTrue(true);
     }
+
     public function test_recount_command_with_model_alias()
     {
         // Create test data

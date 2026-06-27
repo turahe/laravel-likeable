@@ -2,6 +2,7 @@
 
 namespace Turahe\Likeable\Events;
 
+use Turahe\Likeable\Contracts\Likeable;
 use Turahe\Likeable\Contracts\Likeable as LikeableContract;
 
 /**
@@ -12,7 +13,7 @@ class ModelWasDisliked
     /**
      * The disliked model.
      *
-     * @var \Turahe\Likeable\Contracts\Likeable
+     * @var Likeable
      */
     public $likeable;
 

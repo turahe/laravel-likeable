@@ -18,12 +18,12 @@ class CounterTest extends BaseTestCase
         });
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         parent::tearDown();
     }
 
-    public function testLike()
+    public function test_like()
     {
         $stub = Stub::create(['name' => 'test']);
 
@@ -32,7 +32,7 @@ class CounterTest extends BaseTestCase
         $this->assertEquals(1, $stub->likesCount);
     }
 
-    public function testUnlike()
+    public function test_unlike()
     {
         $stub = Stub::create(['name' => 'test']);
 

@@ -53,6 +53,7 @@ class ToggleTest extends BaseTestCase
         $this->assertEquals(0, $stub->likes_count);
         $this->assertFalse($stub->liked(1));
     }
+
     public function test_dislike_toggle()
     {
         /** @var Stub $stub */
@@ -68,6 +69,7 @@ class ToggleTest extends BaseTestCase
         $this->assertEquals(0, $stub->dislikes_count);
         $this->assertFalse($stub->disliked(1));
     }
+
     public function test_toggle_switches_between_like_and_dislike()
     {
         /** @var Stub $stub */
@@ -96,6 +98,7 @@ class ToggleTest extends BaseTestCase
         $this->assertTrue($stub->liked(1));
         $this->assertFalse($stub->disliked(1));
     }
+
     public function test_multiple_users_toggle()
     {
         /** @var Stub $stub */

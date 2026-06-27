@@ -3,6 +3,10 @@
 namespace Turahe\Likeable\Contracts;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Support\Collection;
+use Turahe\Likeable\Exceptions\LikerNotDefinedException;
 
 /**
  * Interface Likeable.
@@ -26,49 +30,49 @@ interface Likeable
     /**
      * Collection of the likes on this record.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     * @return MorphMany
      */
     public function likesAndDislikes();
 
     /**
      * Collection of the likes on this record.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     * @return MorphMany
      */
     public function likes();
 
     /**
      * Collection of the dislikes on this record.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     * @return MorphMany
      */
     public function dislikes();
 
     /**
      * Counter is a record that stores the total likes for the morphed record.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     * @return MorphOne
      */
     public function likesCounter();
 
     /**
      * Counter is a record that stores the total dislikes for the morphed record.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+     * @return MorphOne
      */
     public function dislikesCounter();
 
     /**
      * Fetch users who liked entity.
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public function collectLikers();
 
     /**
      * Fetch users who disliked entity.
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public function collectDislikers();
 
@@ -111,9 +115,9 @@ interface Likeable
      * Fetch records that are liked by a given user id.
      *
      * @param  int|null  $userId
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      *
-     * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
+     * @throws LikerNotDefinedException
      */
     public function scopeWhereLikedBy(Builder $query, $userId = null);
 
@@ -121,9 +125,9 @@ interface Likeable
      * Fetch records that are disliked by a given user id.
      *
      * @param  int|null  $userId
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      *
-     * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
+     * @throws LikerNotDefinedException
      */
     public function scopeWhereDislikedBy(Builder $query, $userId = null);
 
@@ -131,7 +135,7 @@ interface Likeable
      * Fetch records sorted by likes count.
      *
      * @param  string  $direction
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     public function scopeOrderByLikesCount(Builder $query, $direction = 'desc');
 
@@ -139,7 +143,7 @@ interface Likeable
      * Fetch records sorted by likes count.
      *
      * @param  string  $direction
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     public function scopeOrderByDislikesCount(Builder $query, $direction = 'desc');
 
@@ -149,7 +153,7 @@ interface Likeable
      * @param  mixed  $userId  If null will use currently logged in user.
      * @return void
      *
-     * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
+     * @throws LikerNotDefinedException
      */
     public function like($userId = null);
 
@@ -159,7 +163,7 @@ interface Likeable
      * @param  int|null  $userId  If null will use currently logged in user.
      * @return void
      *
-     * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
+     * @throws LikerNotDefinedException
      */
     public function unlike($userId = null);
 
@@ -169,7 +173,7 @@ interface Likeable
      * @param  mixed  $userId  If null will use currently logged in user.
      * @return void
      *
-     * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
+     * @throws LikerNotDefinedException
      */
     public function likeToggle($userId = null);
 
@@ -194,7 +198,7 @@ interface Likeable
      * @param  mixed  $userId  If null will use currently logged in user.
      * @return void
      *
-     * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
+     * @throws LikerNotDefinedException
      */
     public function dislike($userId = null);
 
@@ -204,7 +208,7 @@ interface Likeable
      * @param  int|null  $userId  If null will use currently logged in user.
      * @return void
      *
-     * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
+     * @throws LikerNotDefinedException
      */
     public function undislike($userId = null);
 
@@ -214,7 +218,7 @@ interface Likeable
      * @param  mixed  $userId  If null will use currently logged in user.
      * @return void
      *
-     * @throws \Turahe\Likeable\Exceptions\LikerNotDefinedException
+     * @throws LikerNotDefinedException
      */
     public function dislikeToggle($userId = null);
 

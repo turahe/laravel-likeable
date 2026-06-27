@@ -2,24 +2,27 @@
 
 namespace Turahe\Tests\Likeable\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Turahe\Likeable\Contracts\Likeable as LikeableContract;
+use Turahe\Likeable\Models\Like;
+use Turahe\Likeable\Models\LikeCounter;
 use Turahe\Likeable\Traits\Likeable;
 
 /**
  * Turahe\Tests\Likeable\Models\LikeableStub
  *
- * @property-read \Illuminate\Database\Eloquent\Collection|\Turahe\Likeable\Models\Like[] $dislikes
+ * @property-read Collection|Like[] $dislikes
  * @property-read int $dislikes_count
- * @property-read \Turahe\Likeable\Models\LikeCounter|null $dislikesCounter
+ * @property-read LikeCounter|null $dislikesCounter
  * @property-read bool $disliked
  * @property-read bool $liked
  * @property-read int|null $likes_count
  * @property-read int $likes_diff_dislikes_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\Turahe\Likeable\Models\Like[] $likes
- * @property-read \Illuminate\Database\Eloquent\Collection|\Turahe\Likeable\Models\Like[] $likesAndDislikes
+ * @property-read Collection|Like[] $likes
+ * @property-read Collection|Like[] $likesAndDislikes
  * @property-read int|null $likes_and_dislikes_count
- * @property-read \Turahe\Likeable\Models\LikeCounter|null $likesCounter
+ * @property-read LikeCounter|null $likesCounter
  *
  * @method static \Illuminate\Database\Eloquent\Builder|LikeableStub newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|LikeableStub newQuery()
@@ -35,11 +38,7 @@ class LikeableStub extends Model implements LikeableContract
 {
     use Likeable;
 
-    public function incrementLikeCount()
-    {
-    }
+    public function incrementLikeCount() {}
 
-    public function decrementLikeCount()
-    {
-    }
+    public function decrementLikeCount() {}
 }

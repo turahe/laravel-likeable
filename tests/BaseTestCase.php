@@ -2,6 +2,7 @@
 
 namespace Turahe\Tests\Likeable;
 
+use Illuminate\Foundation\Application;
 use Orchestra\Testbench\TestCase;
 use Turahe\Likeable\LikeableServiceProvider;
 
@@ -22,7 +23,7 @@ abstract class BaseTestCase extends TestCase
     /**
      * Define environment setup.
      *
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param  Application  $app
      * @return void
      */
     protected function getEnvironmentSetUp($app)

@@ -38,6 +38,7 @@ class CommonUseTest extends BaseTestCase
     {
         parent::tearDown();
     }
+
     public function test_basic_like()
     {
         /** @var Stub $stub */
@@ -47,6 +48,7 @@ class CommonUseTest extends BaseTestCase
 
         $this->assertEquals(1, $stub->likesCount);
     }
+
     public function test_multiple_likes()
     {
         $stub = Stub::create(['name' => 123]);
@@ -58,6 +60,7 @@ class CommonUseTest extends BaseTestCase
 
         $this->assertEquals(4, $stub->likesCount);
     }
+
     public function test_unlike()
     {
         /** @var Stub $stub */
@@ -67,6 +70,7 @@ class CommonUseTest extends BaseTestCase
 
         $this->assertEquals(0, $stub->likesCount);
     }
+
     public function test_where_liked_by()
     {
         Stub::create(['name' => 'A'])->like(1);
@@ -79,6 +83,7 @@ class CommonUseTest extends BaseTestCase
         $this->assertEquals(3, $stubs->count());
         $this->assertEmpty($shouldBeEmpty);
     }
+
     public function test_delete_model_deletes_likes()
     {
         /** @var Stub $stub1 */
@@ -108,6 +113,7 @@ class CommonUseTest extends BaseTestCase
         $this->assertEquals(0, Like::count());
         $this->assertEquals(0, LikeCounter::count());
     }
+
     public function test_rebuild_test()
     {
         $stub1 = Stub::create(['name' => 456]);
@@ -127,6 +133,7 @@ class CommonUseTest extends BaseTestCase
 
         $this->assertEquals(2, LikeCounter::count());
     }
+
     public function test_order_by_likes_count()
     {
         $stub1 = Stub::create(['name' => 'A']);
@@ -146,6 +153,7 @@ class CommonUseTest extends BaseTestCase
         $this->assertEquals($stub2->id, $ordered->get(1)->id);  // 2 likes
         $this->assertEquals($stub1->id, $ordered->last()->id);  // 1 like
     }
+
     public function test_collect_likers()
     {
         // Create user records in the database
@@ -166,6 +174,7 @@ class CommonUseTest extends BaseTestCase
         $this->assertCount(3, $likers);
         $this->assertEquals(1, $likers->first()->id);
     }
+
     public function test_collect_dislikers()
     {
         // Create user records in the database
@@ -186,6 +195,7 @@ class CommonUseTest extends BaseTestCase
         $this->assertCount(3, $dislikers);
         $this->assertEquals(1, $dislikers->first()->id);
     }
+
     public function test_likes_and_dislikes()
     {
         $stub = Stub::create(['name' => 123]);
@@ -199,6 +209,7 @@ class CommonUseTest extends BaseTestCase
 
         $this->assertCount(4, $likesAndDislikes->get());
     }
+
     public function test_get_liked_attribute()
     {
         $stub = Stub::create(['name' => 123]);
@@ -211,6 +222,7 @@ class CommonUseTest extends BaseTestCase
         $stub->unlike(1);
         $this->assertFalse($stub->liked(1));
     }
+
     public function test_zero_user_id()
     {
         $stub = Stub::create(['name' => 123]);

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
 use Turahe\Likeable\Contracts\Like as LikeContract;
 use Turahe\Likeable\Contracts\Likeable as LikeableContract;
+use Turahe\Likeable\Contracts\LikeableService;
 use Turahe\Likeable\Contracts\LikeCounter as LikeCounterContract;
 use Turahe\Likeable\Exceptions\ModelInvalidException;
 use Turahe\Likeable\Services\LikeableService as LikeableServiceContract;
@@ -38,7 +39,7 @@ class LikeableRecountCommand extends Command
     /**
      * Likeable service.
      *
-     * @var \Turahe\Likeable\Contracts\LikeableService
+     * @var LikeableService
      */
     protected $service;
 
@@ -47,7 +48,7 @@ class LikeableRecountCommand extends Command
      *
      * @return void
      *
-     * @throws \Turahe\Likeable\Exceptions\ModelInvalidException
+     * @throws ModelInvalidException
      */
     public function handle(Dispatcher $events)
     {
@@ -67,7 +68,7 @@ class LikeableRecountCommand extends Command
      *
      * @return void
      *
-     * @throws \Turahe\Likeable\Exceptions\ModelInvalidException
+     * @throws ModelInvalidException
      */
     protected function recountLikesOfAllModelTypes()
     {
@@ -83,7 +84,7 @@ class LikeableRecountCommand extends Command
      * @param  string  $modelType
      * @return void
      *
-     * @throws \Turahe\Likeable\Exceptions\ModelInvalidException
+     * @throws ModelInvalidException
      */
     protected function recountLikesOfModelType($modelType)
     {
@@ -104,14 +105,14 @@ class LikeableRecountCommand extends Command
      * @param  string  $modelType
      * @return string
      *
-     * @throws \Turahe\Likeable\Exceptions\ModelInvalidException
+     * @throws ModelInvalidException
      */
     protected function normalizeModelType($modelType)
     {
         $morphMap = Relation::morphMap();
 
         if (class_exists($modelType)) {
-            $model = new $modelType();
+            $model = new $modelType;
             $modelType = $model->getMorphClass();
         } else {
             if (! isset($morphMap[$modelType])) {
@@ -119,7 +120,7 @@ class LikeableRecountCommand extends Command
             }
 
             $modelClass = $morphMap[$modelType];
-            $model = new $modelClass();
+            $model = new $modelClass;
         }
 
         if (! $model instanceof LikeableContract) {

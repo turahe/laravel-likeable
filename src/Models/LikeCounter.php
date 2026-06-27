@@ -3,6 +3,8 @@
 namespace Turahe\Likeable\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Support\Carbon;
 use Turahe\Likeable\Contracts\LikeableService as LikeableServiceContract;
 use Turahe\Likeable\Contracts\LikeCounter as LikeCounterContract;
 
@@ -14,8 +16,8 @@ use Turahe\Likeable\Contracts\LikeCounter as LikeCounterContract;
  * @property int $likeable_id
  * @property string $type_id
  * @property int $count
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property-read Model|\Eloquent $likeable
  *
  * @method static \Illuminate\Database\Eloquent\Builder|LikeCounter newModelQuery()
@@ -52,7 +54,7 @@ class LikeCounter extends Model implements LikeCounterContract
     /**
      * Likeable model relation.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+     * @return MorphTo
      */
     public function likeable()
     {
