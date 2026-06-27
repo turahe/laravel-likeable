@@ -170,7 +170,7 @@ class LikeableService implements LikeableServiceContract
         if (! $counter) {
             $counter = $likeable->likesCounter()->create([
                 'count' => 0,
-                'type_id' => LikeType::LIKE,
+                'type_id' => LikeType::LIKE->value,
             ]);
         }
 
@@ -207,7 +207,7 @@ class LikeableService implements LikeableServiceContract
         if (! $counter) {
             $counter = $likeable->dislikesCounter()->create([
                 'count' => 0,
-                'type_id' => LikeType::DISLIKE,
+                'type_id' => LikeType::DISLIKE->value,
             ]);
         }
 
@@ -406,14 +406,19 @@ class LikeableService implements LikeableServiceContract
      *
      * @throws \Turahe\Likeable\Exceptions\LikeTypeInvalidException
      */
-    protected function getLikeTypeId($type)
+    protected function getLikeTypeId(LikeType|string $type): string
     {
-        $type = strtoupper($type);
-        if (! defined("\\Turahe\\Likeable\\Enums\\LikeType::{$type}")) {
-            throw new LikeTypeInvalidException("Like type `{$type}` not exist");
+        if ($type instanceof LikeType) {
+            return $type->value;
         }
 
-        return constant("\\Turahe\\Likeable\\Enums\\LikeType::{$type}");
+        $enum = LikeType::tryFrom(strtolower($type));
+
+        if ($enum !== null) {
+            return $enum->value;
+        }
+
+        throw new LikeTypeInvalidException("Like type `{$type}` not exist");
     }
 
     /**
@@ -462,11 +467,11 @@ class LikeableService implements LikeableServiceContract
     private function likeTypeRelations($type)
     {
         $relations = [
-            LikeType::LIKE => [
+            LikeType::LIKE->value => [
                 'likes',
                 'likesAndDislikes',
             ],
-            LikeType::DISLIKE => [
+            LikeType::DISLIKE->value => [
                 'dislikes',
                 'likesAndDislikes',
             ],

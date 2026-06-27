@@ -31,6 +31,7 @@ class CommonUseTest extends BaseTestCase
     public function tearDown(): void
     {
         Schema::drop('books');
+        parent::tearDown();
     }
 
     public function test_basic_like()
@@ -38,9 +39,9 @@ class CommonUseTest extends BaseTestCase
         /** @var Stub $stub */
         $stub = Stub::create(['name'=>123]);
 
-        $stub->like();
+        $stub->like(1);
 
-        $this->assertEquals(1, $stub->likeCount);
+        $this->assertEquals(1, $stub->likesCount);
     }
 
     public function test_multiple_likes()
@@ -52,7 +53,7 @@ class CommonUseTest extends BaseTestCase
         $stub->like(3);
         $stub->like(4);
 
-        $this->assertEquals(4, $stub->likeCount);
+        $this->assertEquals(4, $stub->likesCount);
     }
 
     public function test_unlike()
@@ -62,7 +63,7 @@ class CommonUseTest extends BaseTestCase
 
         $stub->unlike(1);
 
-        $this->assertEquals(0, $stub->likeCount);
+        $this->assertEquals(0, $stub->likesCount);
     }
 
     public function test_where_liked_by()

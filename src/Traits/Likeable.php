@@ -38,7 +38,7 @@ trait Likeable
      */
     public function likes()
     {
-        return $this->likesAndDislikes()->where('type_id', LikeType::LIKE);
+        return $this->likesAndDislikes()->where('type_id', LikeType::LIKE->value);
     }
 
     /**
@@ -48,7 +48,7 @@ trait Likeable
      */
     public function dislikes()
     {
-        return $this->likesAndDislikes()->where('type_id', LikeType::DISLIKE);
+        return $this->likesAndDislikes()->where('type_id', LikeType::DISLIKE->value);
     }
 
     /**
@@ -59,7 +59,7 @@ trait Likeable
     public function likesCounter()
     {
         return $this->morphOne(app(LikeCounterContract::class), 'likeable')
-            ->where('type_id', LikeType::LIKE);
+            ->where('type_id', LikeType::LIKE->value);
     }
 
     /**
@@ -70,7 +70,7 @@ trait Likeable
     public function dislikesCounter()
     {
         return $this->morphOne(app(LikeCounterContract::class), 'likeable')
-            ->where('type_id', LikeType::DISLIKE);
+            ->where('type_id', LikeType::DISLIKE->value);
     }
 
     /**

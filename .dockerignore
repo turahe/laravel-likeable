@@ -1,0 +1,7 @@
+.git
+.github
+.idea
+vendor
+.phpunit.result.cache
+*.md
+!README.md

@@ -28,6 +28,8 @@ use Turahe\Likeable\Contracts\LikeCounter as LikeCounterContract;
  * @method static \Illuminate\Database\Eloquent\Builder|LikeCounter whereUpdatedAt($value)
  * @mixin \Eloquent
  */
+use Turahe\Likeable\Contracts\LikeableService as LikeableServiceContract;
+
 class LikeCounter extends Model implements LikeCounterContract
 {
     protected $table = 'like_counters';
@@ -53,5 +55,23 @@ class LikeCounter extends Model implements LikeCounterContract
     public function likeable()
     {
         return $this->morphTo();
+    }
+
+    public static function rebuild(string $modelClass, ?string $type = null): void
+    {
+        $model = new $modelClass;
+        $modelType = $model->getMorphClass();
+        $service = app(LikeableServiceContract::class);
+
+        $service->removeLikeCountersOfType($modelType, $type);
+
+        foreach ($service->fetchLikesCounters($modelType, $type) as $counter) {
+            static::create([
+                'likeable_type' => $counter['likeable_type'],
+                'likeable_id' => $counter['likeable_id'],
+                'type_id' => $counter['type_id'],
+                'count' => $counter['count'],
+            ]);
+        }
     }
 }
